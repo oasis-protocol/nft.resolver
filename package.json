@@ -1,0 +1,40 @@
+{
+  "name": "nft-resolver",
+  "version": "1.0.0",
+  "description": "Resolver for non-fungible tokens issued by oasis.asset",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json",
+    "build-docs": "typedoc --out docs /src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oasis-protocol/nft-resolver.git"
+  },
+  "keywords": [
+    "resolver",
+    "nft"
+  ],
+  "author": "theoasis",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/oasis-protocol/nft-resolver/issues"
+  },
+  "homepage": "https://github.com/oasis-protocol/nft-resolver#readme",
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6"
+  },
+  "dependencies": {
+    "@types/crypto-js": "^3.1.43",
+    "@types/urijs": "^1.19.3",
+    "buffer": "^5.4.0",
+    "crypto-js": "^3.1.9-1",
+    "eosjs-ecc": "^4.0.4",
+    "urijs": "^1.19.1"
+  }
+}
