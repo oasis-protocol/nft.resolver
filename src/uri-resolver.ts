@@ -18,26 +18,42 @@ export class NftURI extends URI {
 
   constructor(uri: string) {
     super(uri);
-    const path = this.path().split('/');
-    const query = this.query().split('&');
-
-    if (path.length < 4) {
-      throw new Error("invalid NFT uri");
+    if (this.protocol() != "oasis") {
+      throw new Error("uri protocol should be `oasis`");
     }
 
-    let typ: string
-    [this.contract, this.game, typ, this.name] = path;
-    this.type = typ as NftType;
+    this.contract = this.hostname();
+    if (this.contract == "") {
+      throw new Error("uri hostname should not be empty");
+    }
+    const query = this.query(true);
 
-    this.subTypes = new Map<string, string>();
-    query.forEach(item => {
-      const kv = item.split('=')
-      this.subTypes.set(kv[0], kv[1])
-    })
+    let typ: string
+    [this.game, typ, this.name] = this.segment();
+    this.type = typ as NftType;
+    if (this.game == "" || this.name == "") {
+      throw new Error("meta data resolved from uri is not valid");
+    }
+
+    const subTypes = this.parseSubTypes(query["subtypes"] as string);
+    if (subTypes.length > 0) {
+      this.subTypes = new Map<string, string>();
+      for (let i = 0; i < subTypes.length; i++) {
+        const key = subTypes[i];
+        this.subTypes.set(key, query[key]);
+      }
+    }
   }
 
   get raw(): string {
     return this.toString()
+  }
+
+  parseSubTypes(params: string): string[] {
+    if (!params) {
+      return []
+    }
+    return params.replace(/\[|\]/g, '').split(',');
   }
 
   allSubTypes(): JSON {
@@ -54,7 +70,7 @@ export class NftExtMeta implements ExtendedMeta {
   name: string;
   description: string;
   image: string;
-  properties: Properties
+  properties: Properties;
 
   constructor(name: string, description: string, image: string, properties: Properties) {
     this.name = name;
@@ -65,5 +81,9 @@ export class NftExtMeta implements ExtendedMeta {
 
   toString(): string {
     return JSON.stringify(this);
+  }
+
+  setProps(newProps: Properties) {
+    this.properties = newProps;
   }
 }

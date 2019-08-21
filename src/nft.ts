@@ -6,11 +6,9 @@ export class NFT {
   meta: NftURI;
   extMeta: NftExtMeta;
   symbol: string;
+  signature: string;
 
-  constructor(uuid: string, uri: string, symbol: string) {
-    if (uuid == "") {
-      throw new Error("uuid should not be empty");
-    }
+  constructor(uri: string, symbol: string, uuid: string = "") {
     if (uri == "") {
       throw new Error("uri should not be empty");
     }
@@ -32,6 +30,10 @@ export class NFT {
     return this.meta.contract;
   }
 
+  get game(): string {
+    return this.meta.game;
+  }
+
   get type(): string {
     return this.meta.type
   }
@@ -48,7 +50,16 @@ export class NFT {
     return this.extMeta.toString();
   }
 
+  setExtMetaData(ext: NftExtMeta) {
+    this.extMeta = ext;
+  }
+
   sign(sk: string): string {
-    return Signer.sign(this.uuid, this.uri, this.symbol, sk);
+    this.signature = Signer.sign(this.uuid, this.uri, this.symbol, sk);
+    return this.signature
+  }
+
+  verifySign(pk: string): boolean {
+    return Signer.verifyNftSign(this, pk);
   }
 }
