@@ -6,14 +6,15 @@ const expect = Chai.expect
 
 describe('nft resolver', () => {
   it('general nft resolve', () => {
-    const uri = "oasis://contract/game/WEAPON/antsword";
+    const uri = "oasis://contract/game/ARMOR/antsword";
     const uuid = "1000"
     const nft = new NFT(uri, "SWORD", uuid);
     expect(nft.contract).to.equal("contract");
     expect(nft.game).to.equal("game");
     expect(nft.uuid).to.equal(uuid);
-    expect(nft.type).to.equal("WEAPON");
+    expect(nft.type).to.equal("ARMOR");
     expect(nft.name).to.equal("antsword");
+    expect(nft.uri).to.equal(uri);
   })
 
   it('nft resolved with type `OTHER` and sub types', () => {
@@ -25,7 +26,7 @@ describe('nft resolver', () => {
 
   it('nft with invalid uri', () => {
     try {
-      const nft = new NFT("invalid://contract/game/WEAPON/antsword", "SWORD")
+      const nft = new NFT("invalid://contract/game/ARMOR/antsword", "SWORD")
     } catch (e) {
       expect(e).not.to.undefined;
     }
@@ -34,7 +35,7 @@ describe('nft resolver', () => {
 
 describe('nft signer', () => {
   it('nft signing', async () => {
-    const uri = "oasis://contract/game/WEAPON/antsword";
+    const uri = "oasis://contract/game/ARMOR/antsword";
     const uuid = "1000";
     const symbol = "SWORD"
     const nft = new NFT(uri, symbol, uuid);

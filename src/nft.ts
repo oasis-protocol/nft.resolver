@@ -19,7 +19,6 @@ export class NFT {
     this.uuid = uuid;
     this.meta = new NftURI(uri);
     this.symbol = symbol;
-    this.extMeta = {} as any;
   }
 
   get uri(): string {

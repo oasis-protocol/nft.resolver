@@ -1,6 +1,3 @@
-/** Nft type */
-type NftType = "CONSUMABLE" | "ARMOR" | "MATERIAL" | "TASK" | "OTHER"
-
 /** Extended meta data */
 declare interface ExtendedMeta {
   name: string,
