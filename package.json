@@ -4,7 +4,7 @@
   "description": "Resolver for non-fungible tokens issued by oasis.asset",
   "main": "index.js",
   "scripts": {
-    "test": "jest test/**.test.ts",
+    "test": "jest test/**/*.test.ts",
     "build": "tsc -p tsconfig.json",
     "build-docs": "typedoc --out docs /src"
   },
@@ -35,13 +35,16 @@
   },
   "dependencies": {
     "@types/crypto-js": "^3.1.43",
+    "@types/node": "^12.7.2",
     "@types/text-encoding": "^0.0.35",
     "@types/urijs": "^1.19.3",
+    "@types/web3": "^1.0.19",
     "buffer": "^5.4.0",
     "crypto-js": "^3.1.9-1",
     "eosjs": "^20.0.0",
     "eosjs-ecc": "^4.0.4",
-    "urijs": "^1.19.1"
+    "urijs": "^1.19.1",
+    "web3": "^1.2.1"
   },
   "jest": {
     "transform": {

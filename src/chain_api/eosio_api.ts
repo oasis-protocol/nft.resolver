@@ -9,7 +9,7 @@ interface Auth {
   privateKey: string,
 }
 
-export class EosAPI {
+export class AssetEosAPI {
   /** Api handler */
   api: Api;
   /** Chain Name */
@@ -35,11 +35,10 @@ export class EosAPI {
    * @param issuer Asset issuer
    * @param maximum Maximum number of tokens. Support maximum 4 digits decimal. 
    * @param symbol Token symbol
-   * @param pubkeys NFT signature related public keys
    * @param typ Token type. `0` means coin, `1` means nft
    * @param method Contract method. Default `create`.
    */
-  async createAsset(contract: string, issuer: string, maximum: number, symbol: string, pubkeys: string[], typ: number, method: string = "create"): Promise<any> {
+  async createAsset(contract: string, issuer: string, maximum: number, symbol: string, typ: number, method: string = "create"): Promise<any> {
     return await this.api.transact({
       actions: [{
         account: contract,
@@ -48,7 +47,6 @@ export class EosAPI {
         data: {
           issuer,
           asset: `${maximum} ${symbol}`,
-          pubkeys,
           typ
         }
       }]
@@ -56,6 +54,27 @@ export class EosAPI {
         blocksBehind: 3,
         expireSeconds: 30
       })
+  }
+
+  /**
+   * 
+   * @param contract Target contract account
+   * @param symbol Token symbol
+   * @param pubkeys Public keys of issuers to sign nfts
+   * @param method Contract method. Default `addpubkeys`
+   */
+  async addPubkeys(contract: string, symbol: string, pubkeys: string[], method: string = "addpubkeys"): Promise<any> {
+    return await this.api.transact({
+      actions: [{
+        account: contract,
+        name: method,
+        authorization: [this.issuer],
+        data: {
+          symbl: symbol,
+          pubkeys: pubkeys
+        },
+      }]
+    })
   }
 
   async issueCoin(contract: string, to: string, amount: number, symbol: string, memo: string = "", method: string = "issuecoin"): Promise<any> {
@@ -111,11 +130,11 @@ export class EosAPI {
    * 
    * @param contract Contract account name  
    * @param symbl Token symbol
-   * @param uuids UUID of each nft
+   * @param nfts Nft instance batch
    * @param signatures Signature of each nft
-   * @param method Contract method. Default `signnft`
+   * @param method Contract method. Default `signnfts`
    */
-  async signnft(contract: string, symbl: string, uuids: string[], signatures: string[], method: string = "signnft"): Promise<any> {
+  async signNfts(contract: string, symbl: string, uuids: string[], signatures: string[], method: string = "signnft"): Promise<any> {
     return await this.api.transact({
       actions: [{
         account: contract,
