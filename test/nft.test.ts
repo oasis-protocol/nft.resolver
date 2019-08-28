@@ -1,6 +1,6 @@
-import { NFT } from '../src/nft'
 import ecc from 'eosjs-ecc'
 import Chai from 'chai'
+import { NFT } from '../src';
 
 const expect = Chai.expect
 

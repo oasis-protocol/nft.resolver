@@ -8,6 +8,126 @@ NFT Resolver 是供游戏开发者使用的 SDK，提供两个功能：
 
 - 根据 NFT 的元数据，定制化生成扩展元数据
 
+API 请查阅[Document]()
+
+## Installation
+
+Install with npm:
+
+```shell
+npm install nft-resolver -S
+```
+
+or with yarn:
+
+```shel
+yarn add nft-resolver -S
+```
+
+## Usage
+
+### NFT resolve
+
+```javascript
+import { NFT } from "nft-resolver";
+
+// Initialize with uuid.
+const uuid = "123456";
+const symbol = "SWORD";
+const uri = "oasis://contract/game/OTHER/antsword?subtypes=[type1,type2]&types1=1&types2=2";
+const nft = new NFT(uri, symbol, uuid);
+
+// or initialize without uuid
+const nft = new NFT(uri, symbol);
+
+// Get nft uri and meta data decoded from uri
+nft.uri    // "oasis://contract/game/ARMOR/antsword"
+nft.contract    // "contract"
+nft.game        // "game"
+nft.type        // "OTHER"
+nft.name        // "antsword"
+nft.subTypes    // { type1: "1", types2: "2"}
+
+// Set extended meta data
+nft.setExtMetaData({
+    "name": "Asset Name",
+    "description": "Lorem ipsum...",
+    "image": "...",
+    "properties": {
+        "simple_property": "example value",
+        // 该字段为建议项
+        // 下面为一个例子
+        "rich_property": {...}
+    }
+})
+nft.extendedMetaData;   // the same with above
+
+// Sign nft
+const signature = nft.sign('5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3');
+
+// Verify signature
+nft.verifySign('EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV');
+```
+
+### URI resolve
+
+URI resolver provided a low-level uri assemble or disassemble.
+
+```javascript
+import { NftURI } from "nft-resolver";
+
+const uriString =
+  "oasis://oasis.asset/rogeman/ARMOR/antsword?subtypes=[type1,type2]&type1=1&type2=2";
+const contract = "oasis.asset";
+const game = "rogeman";
+const type = "ARMOR";
+const name = "antsword";
+const nftUri = new NftURI(contract, game, type, name, {
+  type1: "1",
+  type2: "2"
+});
+
+nftUri.raw == uriString; // true
+
+// Sub types manages
+nftUri.getSubType("type1"); // "1"
+nftUri.addSubType("type3", "3");
+nftUri.rmSubType("type3");
+
+// Return all sub types
+nftUri.allSubTypes(); // Object{"type1":"1","type2":"2"}
+```
+
+Extended Meta data class is provided:
+
+```javascript
+import {NftExtMeta} from 'nft-resolver';
+
+const name = "Asset Name";
+const desp = "Simple description";
+const image = "https://www.google.com/image/1.jpg";
+const properties: Properties = {
+  simpleProperty: "Simple property",
+  richProperty:{...}    // json object
+};
+
+const extMeta = new NftExtMeta(name,desp,image,properties);
+
+// Set new property
+extMeta.setProps(newProps);
+
+extMeta.toString();
+// {
+//     "name": "Asset Name",
+//     "description": "Simple description",
+//     "image": "https://www.google.com/image/1.jpg",
+//     "properties": {
+//         "simple_property": "Simple property",
+//         "rich_property": {...}
+//     }
+// }
+```
+
 ## NFT 元数据(meta data)
 
 ### Global ID（uuid）
@@ -39,7 +159,9 @@ type: uint128
 URI 遵循 RFC3986 协议，是 NFT 扩展元数据的解析入口。在 THE OASIS 中，我们约定各游戏所发行的 NFT 资产，其 URI 遵循以下格式：
 
 ```
+
 oasis://[资产合约地址]/[游戏名]/[类型]/[名称]?customField=customValue&......
+
 ```
 
 **资产合约地址**
@@ -73,13 +195,17 @@ oasis://[资产合约地址]/[游戏名]/[类型]/[名称]?customField=customVal
 case 1：游戏【RogeMan】在资产合约【roge.asset】中发行了一瓶恢复 hp 的药品，名为【guanglingsan】，则其 URI 可以是：
 
 ```
+
 oasis://roge.asset/RogeMan/CONSUMABLE/guanglingsan
+
 ```
 
 case 2：游戏【Switch】在资产合约【snake.asset】中发行了一个皮肤，名为【icecap】的头库装饰品，则其 URI 可以是：
 
 ```
+
 oasis://snake.asset/Switch/ARMOR/icecap?pos=HEAD
+
 ```
 
 ## NFT 扩展元数据(extended meta data)

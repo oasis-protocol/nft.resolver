@@ -91,7 +91,7 @@ export class NftURI extends URI {
     return baseUri;
   }
 
-  parseSubTypes(params: string): string[] {
+  private parseSubTypes(params: string): string[] {
     if (!params) {
       return []
     }

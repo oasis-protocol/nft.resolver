@@ -1,0 +1,300 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>nft-resolver</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">nft-resolver</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> nft-resolver</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#nftresolver" id="nftresolver" style="color: inherit; text-decoration: none;">
+					<h1>nft.resolver</h1>
+				</a>
+				<p>Resolver for non-fungible tokens issued by oasis.asset.</p>
+				<p>NFT Resolver 是供游戏开发者使用的 SDK，提供两个功能：</p>
+				<ul>
+					<li><p>NFT 的标准化创建与签名</p>
+					</li>
+					<li><p>根据 NFT 的元数据，定制化生成扩展元数据</p>
+					</li>
+				</ul>
+				<p>API 请查阅<a href="">Document</a></p>
+				<a href="#nft-元数据meta-data" id="nft-元数据meta-data" style="color: inherit; text-decoration: none;">
+					<h2>NFT 元数据(meta data)</h2>
+				</a>
+				<a href="#global-id（uuid）" id="global-id（uuid）" style="color: inherit; text-decoration: none;">
+					<h3>Global ID（uuid）</h3>
+				</a>
+				<p>每个 NFT 都有一个全局唯一的 id，在发行时自动生成，格式为<code>| 发行合约地址 | 合约内的资产id | chain id |</code>。</p>
+				<p><strong>Solidity</strong></p>
+				<p>type: uint256</p>
+				<table>
+					<thead>
+						<tr>
+							<th>160 bits</th>
+							<th>64 bits</th>
+							<th>32 bits</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>合约地址</td>
+							<td>内部递增 ID</td>
+							<td>Chain id（预留给跨链场景）</td>
+						</tr>
+				</tbody></table>
+				<p><strong>EOS</strong></p>
+				<p>type: uint128</p>
+				<table>
+					<thead>
+						<tr>
+							<th>64 bits</th>
+							<th>64 bits</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>合约账户名</td>
+							<td>内部递增 ID</td>
+						</tr>
+				</tbody></table>
+				<a href="#symbol" id="symbol" style="color: inherit; text-decoration: none;">
+					<h3>Symbol</h3>
+				</a>
+				<p>资产符号用于唯一性表征该资产的总称。</p>
+				<a href="#uri" id="uri" style="color: inherit; text-decoration: none;">
+					<h3>URI</h3>
+				</a>
+				<p>URI 遵循 RFC3986 协议，是 NFT 扩展元数据的解析入口。在 THE OASIS 中，我们约定各游戏所发行的 NFT 资产，其 URI 遵循以下格式：</p>
+				<pre><code>oasis://[资产合约地址]/[游戏名]/[类型]/[名称]?customField=customValue&amp;......</code></pre><p><strong>资产合约地址</strong></p>
+				<p>发行该资产的合约地址。在进行跨游戏资产转移过程中，将会<strong>验证该字段是否与实际合约地址一致</strong>。</p>
+				<p><strong>游戏名</strong></p>
+				<p>由发行方指定的游戏名。</p>
+				<p><strong>类型</strong></p>
+				<p>资产类型。为了方便统一解析字段，THE OASIS 预定义了以下字符串表征常用的游戏道具类型：</p>
+				<ul>
+					<li>CONSUMABLE - 消耗类道具</li>
+					<li>ARMOR - 装备类道具</li>
+					<li>MATERIAL - 材料类道具</li>
+					<li>TASK - 任务类道具。该类道具具有唯一用途，且获得途径通常也是比较特殊，如通过任务、任务期间击杀指定怪物等。</li>
+					<li>OTHER - 其他类道具，即无法归类为上述四类的道具。</li>
+				</ul>
+				<p>项目方也可以自定义其他的类型字段作为道具类型。但我们不建议这么做，原因是这需要项目方针对性的为该类资产设计解析逻辑，不利于道具的场景扩展。</p>
+				<p>发行方可对道具类型进一步细化，以 query params 的形式定义子类型，统一格式为：<code>subtypes=[subtype1,subtype2]&amp;subtype1=xxx&amp;subtype2=xxx</code>。</p>
+				<p><strong>名称</strong></p>
+				<p>名称通常表示了一类道具的总称，便于游戏项目方提供基本的扩展元数据。该字段与 Symbol 的区别是，Symbol 有一定长度限制，应使用 Token 名称的简写，或是非可读代号，而 URI 中的名称可以使用道具的全名。</p>
+				<p><strong>Example</strong></p>
+				<p>case 1：游戏【RogeMan】在资产合约【roge.asset】中发行了一瓶恢复 hp 的药品，名为【guanglingsan】，则其 URI 可以是：</p>
+				<pre><code>oasis:<span class="hljs-regexp">//</span>roge.asset<span class="hljs-regexp">/RogeMan/</span>CONSUMABLE<span class="hljs-regexp">/guanglingsan</span></code></pre><p>case 2：游戏【Switch】在资产合约【snake.asset】中发行了一个皮肤，名为【icecap】的头库装饰品，则其 URI 可以是：</p>
+				<pre><code>oasis:<span class="hljs-regexp">//</span>snake.asset<span class="hljs-regexp">/Switch/</span>ARMOR<span class="hljs-regexp">/icecap?pos=HEAD</span></code></pre>
+				<a href="#nft-扩展元数据extended-meta-data" id="nft-扩展元数据extended-meta-data" style="color: inherit; text-decoration: none;">
+					<h2>NFT 扩展元数据(extended meta data)</h2>
+				</a>
+				<p>扩展元数据是游戏根据 URI 进行定制化解析所返回的 JSON 数据，反应来该 NFT 在当前游戏中的名称、属性、用途等定制化内容。</p>
+				<p>在 THE OASIS 中，我们希望统一扩展元数据的格式，以方便不同游戏项目方对 NFT 进行定制化解析：</p>
+				<pre><code class="language-json">
+{
+
+    &quot;name&quot;: &quot;Asset Name&quot;,        // 必须项
+    &quot;description&quot;: &quot;Lorem ipsum...&quot;,    // 必须项
+    &quot;image&quot;: &quot;https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png&quot;,    // 必须项
+    &quot;properties&quot;: {
+        // 该字段为必须项
+        &quot;simple_property&quot;: &quot;example value&quot;,
+        // 该字段为建议项
+        // 下面为一个例子
+        &quot;rich_property&quot;: {
+            &quot;attack&quot;: 100,         // 攻击力100
+            &quot;defense&quot;: 200,    // 防御力200
+            &quot;skill&quot;: {
+                ...
+            }
+        }
+    }
+}
+</code></pre>
+				<p><strong>字段名定义</strong></p>
+				<ul>
+					<li><code>name</code> <strong>string</strong> - NFT 的名称</li>
+					<li><code>description</code> <strong>string</strong> - NFT 的详细介绍</li>
+					<li><code>image</code> <strong>string</strong> - NFT 图片的 url</li>
+					<li><code>properties</code> <strong>JSON</strong> NFT 属性对象<ul>
+							<li><code>simple_property</code> <strong>string</strong> - 属性的简易描述，通常为道具的用途</li>
+							<li><code>rich_property</code> <strong>JSON</strong> - 属性的详细描述，包括数值设计、功能设计、使用场景等。可由游戏项目方自定义字段。</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#道具玩法" id="道具玩法" style="color: inherit; text-decoration: none;">
+					<h2>道具玩法</h2>
+				</a>
+				<a href="#合成" id="合成" style="color: inherit; text-decoration: none;">
+					<h3>合成</h3>
+				</a>
+				<p>合成是不同道具的组合，其原理是将不同道具销毁，生成新的道具。</p>
+				<a href="#镶嵌" id="镶嵌" style="color: inherit; text-decoration: none;">
+					<h3>镶嵌</h3>
+				</a>
+				<p>镶嵌也是不同道具的组合。与合成不同的是，镶嵌是可逆的过程，即镶嵌材料道具并不销毁，可再次拆分。游戏项目方应将镶嵌的关系记录存储在中心化数据库中，且保留镶嵌材料的道具 ID。</p>
+				<p>当某道具作为镶嵌材料时，其不应进行跨合约转移。该限制逻辑可放在<code>world.canICTransfer</code>中调用。</p>
+				<a href="#强化" id="强化" style="color: inherit; text-decoration: none;">
+					<h3>强化</h3>
+				</a>
+				<p>强化是对道具属性值的修改。由于链上 NFT 元数据不可修改，对于具体属性值的修改只能记录在游戏的中心化数据库中。</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_chain_api_eosio_api_.html">"chain_<wbr>api/eosio_<wbr>api"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_chain_api_web3_api_.html">"chain_<wbr>api/web3_<wbr>api"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_nft_.html">"nft"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_signer_.html">"signer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_uri_resolver_.html">"uri-<wbr>resolver"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

@@ -59,6 +59,9 @@ export class NFT {
   }
 
   verifySign(pk: string): boolean {
+    if (!this.signature) {
+      throw new Error('nft signature is undefined');
+    }
     return Signer.veriySign(this.uuid, this.uri, this.symbol, this.signature, pk);
   }
 }
