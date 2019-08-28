@@ -1,6 +1,5 @@
 import ecc from 'eosjs-ecc';
 import sha256 from 'crypto-js/sha256';
-import { NFT } from './nft';
 import Web3 from 'web3';
 
 export namespace EosSigner {

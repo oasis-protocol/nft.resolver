@@ -1,5 +1,5 @@
 import { NftURI, NftExtMeta } from "./uri-resolver";
-import { Signer } from "./signer";
+import { EosSigner as Signer } from "./signer";
 
 export class NFT {
   uuid: string;
@@ -59,6 +59,6 @@ export class NFT {
   }
 
   verifySign(pk: string): boolean {
-    return Signer.verifyNftSign(this, pk);
+    return Signer.veriySign(this.uuid, this.uri, this.symbol, this.signature, pk);
   }
 }

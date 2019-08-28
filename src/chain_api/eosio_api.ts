@@ -9,7 +9,7 @@ interface Auth {
   privateKey: string,
 }
 
-export class AssetEosAPI {
+export default class AssetEosAPI {
   /** Api handler */
   api: Api;
   /** Chain Name */
@@ -24,7 +24,7 @@ export class AssetEosAPI {
     this.issuer = issuer;
 
     const signatureProvider = new JsSignatureProvider([creator.privateKey, issuer.privateKey]);
-    const rpc = new JsonRpc(endpoint);
+    const rpc = new JsonRpc(endpoint, { fetch });
     this.api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
   }
 
@@ -107,7 +107,7 @@ export class AssetEosAPI {
       }
     }
     const uris = nfts.map(item => item.uri)
-    this.api.transact({
+    return await this.api.transact({
       actions: [{
         account: contract,
         name: method,

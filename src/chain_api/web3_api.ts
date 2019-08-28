@@ -11,7 +11,7 @@ export interface trxOpts {
   gasPrice?: string
 }
 
-export class AssetWeb3API {
+export default class AssetWeb3API {
   web3: Web3;
   // Contract creator account
   creator: Account;
