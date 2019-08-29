@@ -1,9 +1,10 @@
 {
   "name": "nft-resolver",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Resolver for non-fungible tokens issued by oasis.asset",
   "main": "dist/index.js",
   "scripts": {
+    "prepare": "npm run build",
     "test": "jest test/*.test.ts",
     "build": "tsc -p tsconfig.json",
     "build-docs": "typedoc --out docs /src"
