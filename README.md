@@ -41,7 +41,7 @@ const nft = new NFT(uri, symbol, uuid);
 const nft = new NFT(uri, symbol);
 
 // Get nft uri and meta data decoded from uri
-nft.uri    // "oasis://contract/game/ARMOR/antsword"
+nft.uri    // "oasis://contract/game/ARMOR/antsword?subtypes=[type1,type2]&types1=1&types2=2"
 nft.contract    // "contract"
 nft.game        // "game"
 nft.type        // "OTHER"
@@ -218,17 +218,14 @@ oasis://snake.asset/Switch/ARMOR/icecap?pos=HEAD
 
 {
 
-    "name": "Asset Name",        // 必须项
+    "name": "Asset Name",               // 必须项
     "description": "Lorem ipsum...",    // 必须项
     "image": "https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png",    // 必须项
     "properties": {
-        // 该字段为必须项
-        "simple_property": "example value",
-        // 该字段为建议项
-        // 下面为一个例子
-        "rich_property": {
+        "simple_property": "example value",   // 该字段为必须项
+        "rich_property": {         // 该字段为建议项
             "attack": 100,         // 攻击力100
-            "defense": 200,    // 防御力200
+            "defense": 200,        // 防御力200
             "skill": {
                 ...
             }
