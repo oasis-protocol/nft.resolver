@@ -121,12 +121,16 @@ export class NftURI extends URI {
 
 /** NFT extended meta data creator*/
 export class NftExtMeta implements ExtendedMeta {
+  /** Item name */
   name: string;
+  /** Item description */
   description: string;
+  /** Item image icon url */
   image: string;
-  properties: Properties;
+  /** Item rich properties */
+  properties: JSON;
 
-  constructor(name: string, description: string, image: string, properties: Properties) {
+  constructor(name: string, description: string, image: string, properties: JSON) {
     this.name = name;
     this.description = description;
     this.image = image;
@@ -137,7 +141,19 @@ export class NftExtMeta implements ExtendedMeta {
     return JSON.stringify(this);
   }
 
-  setProps(newProps: Properties) {
+  setProps(newProps: JSON) {
     this.properties = newProps;
+  }
+
+  addProps(newProps: JSON) {
+    this.properties = Object.assign({}, this.properties, newProps);
+  }
+
+  rmProps(props: JSON) {
+    for (let key in props) {
+      if (props[key]) {
+        delete props[key]
+      }
+    }
   }
 }

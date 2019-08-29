@@ -121,7 +121,8 @@ extMeta.toString();
 //     "name": "Asset Name",
 //     "description": "Simple description",
 //     "image": "https://www.google.com/image/1.jpg",
-//     "properties": {
+//     "properties": {  
+//         // 可自定义字段，以下仅为一个例子
 //         "simple_property": "Simple property",
 //         "rich_property": {...}
 //     }
@@ -222,14 +223,7 @@ oasis://snake.asset/Switch/ARMOR/icecap?pos=HEAD
     "description": "Lorem ipsum...",    // 必须项
     "image": "https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png",    // 必须项
     "properties": {
-        "simple_property": "example value",   // 该字段为必须项
-        "rich_property": {         // 该字段为建议项
-            "attack": 100,         // 攻击力100
-            "defense": 200,        // 防御力200
-            "skill": {
-                ...
-            }
-        }
+      ... // 定义JSON对象
     }
 }
 
