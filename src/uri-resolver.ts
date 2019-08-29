@@ -10,6 +10,14 @@ export enum NftType {
   OTHER = "OTHER",
 }
 
+/** Nft extended meta data */
+export interface ExtendedMeta {
+  name: string,
+  description: string,
+  image: string,
+  properties: JSON
+}
+
 /**
  * THE OASIS URI Format 
  * oasis://{ContractAddress}/{GameName}/{ItemType}/{ItemName}?customField=customVal&...
