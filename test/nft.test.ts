@@ -30,6 +30,20 @@ describe('nft resolver', () => {
     } catch (e) {
       expect(e).not.to.undefined;
     }
+
+    try {
+      const nft = new NFT("oasis://contract/game", "SWORD");
+    } catch (e) {
+      console.log(e.message)
+      expect(e).not.to.undefined;
+    }
+
+    try {
+      const nft = new NFT("oasis://contract/game/type", "SWORD");
+    } catch (e) {
+      console.log(e.message)
+      expect(e).not.to.undefined;
+    }
   })
 })
 
