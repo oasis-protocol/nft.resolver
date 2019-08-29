@@ -235,8 +235,6 @@ oasis://snake.asset/Switch/ARMOR/icecap?pos=HEAD
 - `description` **string** - NFT 的详细介绍
 - `image` **string** - NFT 图片的 url
 - `properties` **JSON** NFT 属性对象
-  - `simple_property` **string** - 属性的简易描述，通常为道具的用途
-  - `rich_property` **JSON** - 属性的详细描述，包括数值设计、功能设计、使用场景等。可由游戏项目方自定义字段。
 
 ## 道具玩法
 
