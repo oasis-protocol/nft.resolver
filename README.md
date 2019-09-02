@@ -41,7 +41,7 @@ const nft = new NFT(uri, symbol, uuid);
 const nft = new NFT(uri, symbol);
 
 // Get nft uri and meta data decoded from uri
-nft.uri    // "oasis://contract/game/ARMOR/antsword"
+nft.uri    // "oasis://contract/game/ARMOR/antsword?subtypes=[type1,type2]&types1=1&types2=2"
 nft.contract    // "contract"
 nft.game        // "game"
 nft.type        // "OTHER"
@@ -121,7 +121,8 @@ extMeta.toString();
 //     "name": "Asset Name",
 //     "description": "Simple description",
 //     "image": "https://www.google.com/image/1.jpg",
-//     "properties": {
+//     "properties": {  
+//         // 可自定义字段，以下仅为一个例子
 //         "simple_property": "Simple property",
 //         "rich_property": {...}
 //     }
@@ -218,21 +219,11 @@ oasis://snake.asset/Switch/ARMOR/icecap?pos=HEAD
 
 {
 
-    "name": "Asset Name",        // 必须项
+    "name": "Asset Name",               // 必须项
     "description": "Lorem ipsum...",    // 必须项
     "image": "https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png",    // 必须项
     "properties": {
-        // 该字段为必须项
-        "simple_property": "example value",
-        // 该字段为建议项
-        // 下面为一个例子
-        "rich_property": {
-            "attack": 100,         // 攻击力100
-            "defense": 200,    // 防御力200
-            "skill": {
-                ...
-            }
-        }
+      ... // 定义JSON对象
     }
 }
 
@@ -244,8 +235,6 @@ oasis://snake.asset/Switch/ARMOR/icecap?pos=HEAD
 - `description` **string** - NFT 的详细介绍
 - `image` **string** - NFT 图片的 url
 - `properties` **JSON** NFT 属性对象
-  - `simple_property` **string** - 属性的简易描述，通常为道具的用途
-  - `rich_property` **JSON** - 属性的详细描述，包括数值设计、功能设计、使用场景等。可由游戏项目方自定义字段。
 
 ## 道具玩法
 
