@@ -12,7 +12,7 @@ export enum NftType {
 
 /**
  * THE OASIS URI Format 
- * oasis://{ContractAddress}/{GameName}/{ItemType}/{ItemName}?customField=customVal&...
+ * oasis://{ContractAddress}/{GameName}/{ItemType}/{ItemCategory}?customField=customVal&...
  */
 export class NftURI extends URI {
   /** Asset contract */
@@ -24,18 +24,18 @@ export class NftURI extends URI {
   /** NFT type */
   type: NftType
 
-  /** NFT name */
-  name: string
+  /** NFT category */
+  category: string
 
   /** Sub types */
   subTypes: Map<string, string>
 
-  static fromMeta(contract: string, game: string, type: NftType, name: string, subTypes?: Map<string, string>): NftURI {
+  static fromMeta(contract: string, game: string, type: NftType, category: string, subTypes?: Map<string, string>): NftURI {
     const NftUri = new NftURI();
     NftUri.contract = contract;
     NftUri.game = game;
     NftUri.type = type;
-    NftUri.name = name;
+    NftUri.category = category;
     NftUri.subTypes = new Map<string, string>();
     if (subTypes) {
       subTypes.forEach((v, k) => {
@@ -60,10 +60,10 @@ export class NftURI extends URI {
     const query = this.query(true);
 
     let typ: string
-    [this.game, typ, this.name] = this.segment();
+    [this.game, typ, this.category] = this.segment();
     this.type = NftType[typ];
     if (!this.type) throw new Error("invalid nft type. Only support `CONSUMABLE`,`ARMOR`,`MATERIAL`,`TASK` and `OTHER`");
-    if (this.game == "" || this.name == "") {
+    if (this.game == "" || this.category == "") {
       throw new Error("meta data resolved from uri is not valid");
     }
 
@@ -78,7 +78,7 @@ export class NftURI extends URI {
   }
 
   get raw(): string {
-    let baseUri = `oasis://${this.contract}/${this.game}/${this.type}/${this.name}`;
+    let baseUri = `oasis://${this.contract}/${this.game}/${this.type}/${this.category}`;
     if (this.subTypes && this.subTypes.size > 0) {
       const query = [];
       const keys = [];

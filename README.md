@@ -160,7 +160,7 @@ URI 遵循 RFC3986 协议，是 NFT 扩展元数据的解析入口。在 THE OAS
 
 ```
 
-oasis://[资产合约地址]/[游戏名]/[类型]/[名称]?customField=customValue&......
+oasis://[资产合约地址]/[游戏名]/[类型]/[道具类名]?customField=customValue&......
 
 ```
 
@@ -186,9 +186,9 @@ oasis://[资产合约地址]/[游戏名]/[类型]/[名称]?customField=customVal
 
 发行方可对道具类型进一步细化，以 query params 的形式定义子类型，统一格式为：`subtypes=[subtype1,subtype2]&subtype1=xxx&subtype2=xxx`。
 
-**名称**
+**道具类名**
 
-名称通常表示了一类道具的总称，便于游戏项目方提供基本的扩展元数据。该字段与 Symbol 的区别是，Symbol 有一定长度限制，应使用 Token 名称的简写，或是非可读代号，而 URI 中的名称可以使用道具的全名。
+道具类名通常表示了一类道具的总称（如蓝宝石，火焰之剑等），便于游戏项目方提供基本的扩展元数据。该字段与 Symbol 的区别是，Symbol 有一定长度限制，应使用 Token 名称的简写，或是非可读代号，而 URI 中的名称可以使用道具的全名。
 
 **Example**
 

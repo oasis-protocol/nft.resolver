@@ -10,7 +10,7 @@ describe('uri resolver', () => {
     expect(uri.contract).to.equal("contract");
     expect(uri.game).to.equal("game");
     expect(uri.type).to.equal("ARMOR");
-    expect(uri.name).to.equal("antsword");
+    expect(uri.category).to.equal("antsword");
     expect(uri.subTypes.size).to.equal(2);
     expect(uri.getSubType("type1")).to.equal('1');
     expect(uri.getSubType("type2")).to.equal('2');
@@ -24,7 +24,7 @@ describe('uri resolver', () => {
     expect(uri.contract).to.equal("contract");
     expect(uri.game).to.equal("game");
     expect(uri.type).to.equal("ARMOR");
-    expect(uri.name).to.equal("antsword");
+    expect(uri.category).to.equal("antsword");
     expect(uri.subTypes.size).to.equal(2);
     expect(uri.getSubType("type1")).to.equal('1');
     expect(uri.getSubType("type2")).to.equal('2');

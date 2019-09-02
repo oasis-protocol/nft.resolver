@@ -37,8 +37,8 @@ export class NFT {
     return this.meta.type
   }
 
-  get name(): string {
-    return this.meta.name;
+  get category(): string {
+    return this.meta.category;
   }
 
   get subTypes(): JSON {
