@@ -35,6 +35,9 @@ export class NftURI extends URI {
   /** NFT category */
   category: string
 
+  /** Uri remaining fragments */
+  fragments: string[]
+
   /** Sub types */
   subTypes: Map<string, string>
 
@@ -68,12 +71,15 @@ export class NftURI extends URI {
     const query = this.query(true);
 
     let typ: string
-    [this.game, typ, this.category] = this.segment();
+    const segments = this.segment().slice();
+    [this.game, typ, this.category] = [segments[0], segments[1], segments[2]];
     this.type = NftType[typ];
     if (!this.type) throw new Error("invalid nft type. Only support `CONSUMABLE`,`ARMOR`,`MATERIAL`,`TASK` and `OTHER`");
     if (this.game == "" || this.category == "") {
       throw new Error("meta data resolved from uri is not valid");
     }
+
+    this.fragments = segments.slice(3);
 
     this.subTypes = new Map<string, string>();
     const subTypes = this.parseSubTypes(query["subtypes"] as string);

@@ -81,8 +81,8 @@ const uriString =
 const contract = "oasis.asset";
 const game = "rogeman";
 const type = "ARMOR";
-const name = "antsword";
-const nftUri = new NftURI(contract, game, type, name, {
+const category = "antsword";
+const nftUri = new NftURI(contract, game, type, category, {
   type1: "1",
   type2: "2"
 });
@@ -121,7 +121,7 @@ extMeta.toString();
 //     "name": "Asset Name",
 //     "description": "Simple description",
 //     "image": "https://www.google.com/image/1.jpg",
-//     "properties": {  
+//     "properties": {
 //         // 可自定义字段，以下仅为一个例子
 //         "simple_property": "Simple property",
 //         "rich_property": {...}
