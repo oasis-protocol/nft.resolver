@@ -144,11 +144,11 @@ export class NftExtMeta implements ExtendedMeta {
   /** Item rich properties */
   properties: JSON;
 
-  constructor(name: string, description: string, image: string, properties: JSON) {
+  constructor(name: string, description: string, image: string, properties?: JSON) {
     this.name = name;
     this.description = description;
     this.image = image;
-    this.properties = properties;
+    this.properties = properties || {} as JSON;
   }
 
   toString(): string {
@@ -166,7 +166,7 @@ export class NftExtMeta implements ExtendedMeta {
   rmProps(props: JSON) {
     for (let key in props) {
       if (props[key]) {
-        delete props[key]
+        delete props[key];
       }
     }
   }
