@@ -18,7 +18,7 @@ describe('nft resolver', () => {
   })
 
   it('nft resolved with type `OTHER` and sub types', () => {
-    const uri = "oasis://contract/game/OTHER/antsword?subtypes=[type1,type2]&type1=1&type2=2";
+    const uri = "oasis://contract/game/OTHER/antsword?subtypes=type1,type2&type1=1&type2=2";
     const nft = new NFT(uri, "SWORD");
     expect(nft.subTypes["type1"]).to.equal('1');
     expect(nft.subTypes["type2"]).to.equal('2');

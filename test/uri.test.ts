@@ -5,7 +5,7 @@ const expect = Chai.expect;
 
 describe('uri resolver', () => {
   it('create NftURI from uri string', () => {
-    const base = "oasis://contract/game/ARMOR/antsword/other1/other2?subtypes=[type1,type2]&type1=1&type2=2";
+    const base = "oasis://contract/game/ARMOR/antsword/other1/other2?subtypes=type1,type2&type1=1&type2=2";
     const uri = new NftURI(base);
     expect(uri.contract).to.equal("contract");
     expect(uri.game).to.equal("game");

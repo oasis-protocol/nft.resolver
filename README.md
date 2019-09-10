@@ -34,14 +34,14 @@ import { NFT } from "nft-resolver";
 // Initialize with uuid.
 const uuid = "123456";
 const symbol = "SWORD";
-const uri = "oasis://contract/game/OTHER/antsword?subtypes=[type1,type2]&types1=1&types2=2";
+const uri = "oasis://contract/game/OTHER/antsword?subtypes=type1,type2&types1=1&types2=2";
 const nft = new NFT(uri, symbol, uuid);
 
 // or initialize without uuid
 const nft = new NFT(uri, symbol);
 
 // Get nft uri and meta data decoded from uri
-nft.uri    // "oasis://contract/game/ARMOR/antsword?subtypes=[type1,type2]&types1=1&types2=2"
+nft.uri    // "oasis://contract/game/ARMOR/antsword?subtypes=type1,type2&types1=1&types2=2"
 nft.contract    // "contract"
 nft.game        // "game"
 nft.type        // "OTHER"
@@ -77,7 +77,7 @@ URI resolver provided a low-level uri assemble or disassemble.
 import { NftURI } from "nft-resolver";
 
 const uriString =
-  "oasis://oasis.asset/rogeman/ARMOR/antsword?subtypes=[type1,type2]&type1=1&type2=2";
+  "oasis://oasis.asset/rogeman/ARMOR/antsword?subtypes=type1,type2&type1=1&type2=2";
 const contract = "oasis.asset";
 const game = "rogeman";
 const type = "ARMOR";
@@ -185,7 +185,7 @@ oasis://[资产合约地址]/[游戏名]/[类型]/[道具类名]?customField=cus
 
 项目方也可以自定义其他的类型字段作为道具类型。但我们不建议这么做，原因是这需要项目方针对性的为该类资产设计解析逻辑，不利于道具的场景扩展。
 
-发行方可对道具类型进一步细化，以 query params 的形式定义子类型，统一格式为：`subtypes=[subtype1,subtype2]&subtype1=xxx&subtype2=xxx`。
+发行方可对道具类型进一步细化，以 query params 的形式定义子类型，统一格式为：`subtypes=subtype1,subtype2&subtype1=xxx&subtype2=xxx`。
 
 **道具类名**
 

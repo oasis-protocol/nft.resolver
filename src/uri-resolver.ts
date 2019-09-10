@@ -100,7 +100,7 @@ export class NftURI extends URI {
         keys.push(k);
         query.push(`${k}=${v}`);
       })
-      baseUri += `?subtypes=[${keys.join(',')}]&${query.join('&')}`
+      baseUri += `?subtypes=${keys.join(',')}&${query.join('&')}`
     }
     return baseUri;
   }
@@ -109,7 +109,7 @@ export class NftURI extends URI {
     if (!params) {
       return []
     }
-    return params.replace(/\[|\]/g, '').split(',');
+    return params.split(',');
   }
 
   getSubType(k: string): string {
