@@ -45,7 +45,7 @@ nft.uri    // "oasis://contract/game/ARMOR/antsword?subtypes=type1,type2&types1=
 nft.contract    // "contract"
 nft.game        // "game"
 nft.type        // "OTHER"
-nft.name        // "antsword"
+nft.category    // "antsword"
 nft.subTypes    // { type1: "1", types2: "2"}
 
 // Set extended meta data
