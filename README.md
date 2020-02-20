@@ -8,7 +8,7 @@ NFT Resolver 是供游戏开发者使用的 SDK，提供两个功能：
 
 - 根据 NFT 的元数据，定制化生成扩展元数据
 
-API 请查阅[Document]()
+API 请查阅[Document](docs/)
 
 ## Installation
 
@@ -34,19 +34,18 @@ import { NFT } from "nft-resolver";
 // Initialize with uuid.
 const uuid = "123456";
 const symbol = "SWORD";
-const uri = "oasis://contract/game/OTHER/antsword?subtypes=type1,type2&types1=1&types2=2";
+const uri = "oasis://Game/OTHER/antsword?subtypes=type1,type2&types1=1&types2=2";
 const nft = new NFT(uri, symbol, uuid);
 
 // or initialize without uuid
 const nft = new NFT(uri, symbol);
 
 // Get nft uri and meta data decoded from uri
-nft.uri    // "oasis://contract/game/ARMOR/antsword?subtypes=type1,type2&types1=1&types2=2"
-nft.contract    // "contract"
+nft.uri    // "oasis://game/ARMOR/antsword?subtypes=type1,type2&types1=1&types2=2"
 nft.game        // "game"
 nft.type        // "OTHER"
 nft.category    // "antsword"
-nft.subTypes    // { type1: "1", types2: "2"}
+nft.params    // { subtypes:"type1,type2", type1: "1", types2: "2"}
 
 // Set extended meta data
 nft.setExtMetaData({
@@ -77,12 +76,11 @@ URI resolver provided a low-level uri assemble or disassemble.
 import { NftURI } from "nft-resolver";
 
 const uriString =
-  "oasis://oasis.asset/rogeman/ARMOR/antsword?subtypes=type1,type2&type1=1&type2=2";
-const contract = "oasis.asset";
+  "oasis://rogeman/ARMOR/antsword?subtypes=type1,type2&type1=1&type2=2";
 const game = "rogeman";
 const type = "ARMOR";
 const category = "antsword";
-const nftUri = new NftURI(contract, game, type, category, {
+const nftUri = new NftURI(game, type, category, {
   subtypes: "type1,type2",
   type1: "1",
   type2: "2"
@@ -166,7 +164,7 @@ oasis://[Game(游戏别名)]/[Type(类型)]/[Category(道具类名)]?customField
 
 **Game**
 
-由发行方指定的游戏别名。
+由发行方指定的游戏别名。推荐使用 OASIS.WORLD 合约的实际部署地址。
 
 **Type**
 
@@ -190,11 +188,11 @@ oasis://[Game(游戏别名)]/[Type(类型)]/[Category(道具类名)]?customField
 
 **Example**
 
-case 1：游戏【RogeMan】在资产合约【roge.asset】中发行了一瓶恢复 hp 的药品，名为【guanglingsan】，则其 URI 可以是：
+case 1：游戏【RogeMan】发行了一瓶恢复 hp 的药品，名为【guanglingsan】，则其 URI 可以是：
 
 ```
 
-oasis://roge.asset/RogeMan/CONSUMABLE/guanglingsan
+oasis://RogeMan/CONSUMABLE/guanglingsan
 
 ```
 
@@ -202,7 +200,7 @@ case 2：游戏【Switch】在资产合约【snake.asset】中发行了一个皮
 
 ```
 
-oasis://snake.asset/Switch/ARMOR/icecap?pos=HEAD
+oasis://Switch/ARMOR/icecap?pos=HEAD
 
 ```
 

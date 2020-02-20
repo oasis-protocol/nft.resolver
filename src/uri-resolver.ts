@@ -20,12 +20,9 @@ export interface ExtendedMeta {
 
 /**
  * THE OASIS URI Format 
- * oasis://{ContractAddress}/{GameName}/{ItemType}/{ItemCategory}?customField=customVal&...
+ * oasis://{GameName}/{ItemType}/{ItemCategory}?customField=customVal&...
  */
 export class NftURI extends URI {
-  /** Asset contract */
-  contract: string
-
   /** Game name */
   game: string
 
@@ -41,9 +38,8 @@ export class NftURI extends URI {
   /** query params */
   params: Map<string, string>
 
-  static fromMeta(contract: string, game: string, type: NftType, category: string, params?: Map<string, string>): NftURI {
+  static fromMeta(game: string, type: NftType, category: string, params?: Map<string, string>): NftURI {
     const NftUri = new NftURI();
-    NftUri.contract = contract;
     NftUri.game = game;
     NftUri.type = type;
     NftUri.category = category;
@@ -64,22 +60,22 @@ export class NftURI extends URI {
       throw new Error("uri protocol should be `oasis`");
     }
 
-    this.contract = this.hostname();
-    if (this.contract == "") {
+    this.game = this.hostname();
+    if (this.game == "") {
       throw new Error("uri hostname should not be empty");
     }
     const query = this.query(true);
 
     let typ: string
     const segments = this.segment().slice();
-    [this.game, typ, this.category] = [segments[0], segments[1], segments[2]];
+    [typ, this.category] = [segments[0], segments[1]];
     if (!NftType[typ]) console.warn(`'${typ}' is not standard nft type in Oasis. Standard type supports 'CONSUMABLE','ARMOR','MATERIAL', 'TASK' and 'OTHER'`);
     this.type = NftType[typ] || typ;
     if (this.game == "" || this.category == "") {
       throw new Error("meta data resolved from uri is not valid");
     }
 
-    this.fragments = segments.slice(3);
+    this.fragments = segments.slice(2);
 
     this.params = new Map<string, string>();
     for (let key in query) {
@@ -88,7 +84,7 @@ export class NftURI extends URI {
   }
 
   get raw(): string {
-    let baseUri = `oasis://${this.contract}/${this.game}/${this.type}/${this.category}`;
+    let baseUri = `oasis://${this.game}/${this.type}/${this.category}`;
     if (this.params && this.params.size > 0) {
       const query = [];
       const keys = [];
@@ -99,13 +95,6 @@ export class NftURI extends URI {
       baseUri += `?params=${keys.join(',')}&${query.join('&')}`
     }
     return baseUri;
-  }
-
-  private parseparams(params: string): string[] {
-    if (!params) {
-      return []
-    }
-    return params.split(',');
   }
 
   getParam(k: string): string {

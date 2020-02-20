@@ -25,10 +25,6 @@ export class NFT {
     return this.meta.raw;
   }
 
-  get contract(): string {
-    return this.meta.contract;
-  }
-
   get game(): string {
     return this.meta.game;
   }
