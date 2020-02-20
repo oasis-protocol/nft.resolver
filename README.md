@@ -45,7 +45,7 @@ nft.uri    // "oasis://contract/game/ARMOR/antsword?subtypes=type1,type2&types1=
 nft.contract    // "contract"
 nft.game        // "game"
 nft.type        // "OTHER"
-nft.name        // "antsword"
+nft.category    // "antsword"
 nft.subTypes    // { type1: "1", types2: "2"}
 
 // Set extended meta data
@@ -76,12 +76,14 @@ URI resolver provided a low-level uri assemble or disassemble.
 ```javascript
 import { NftURI } from "nft-resolver";
 
-const uriString = "oasis://oasis.asset/rogeman/ARMOR/antsword?type1=1&type2=2";
+const uriString =
+  "oasis://oasis.asset/rogeman/ARMOR/antsword?subtypes=type1,type2&type1=1&type2=2";
 const contract = "oasis.asset";
 const game = "rogeman";
 const type = "ARMOR";
 const category = "antsword";
 const nftUri = new NftURI(contract, game, type, category, {
+  subtypes: "type1,type2",
   type1: "1",
   type2: "2"
 });
@@ -94,7 +96,7 @@ nftUri.addParam("type3", "3");
 nftUri.rmParam("type3");
 
 // Return all query params
-nftUri.allParams(); // Object{"type1":"1","type2":"2"}
+nftUri.allParams(); // Object{"subtypes":"type1,type2","type1":"1","type2":"2"}
 ```
 
 Extended Meta data class is provided:
@@ -159,36 +161,32 @@ type: uint128
 URI 遵循 RFC3986 协议，是 NFT 扩展元数据的解析入口。在 THE OASIS 中，我们约定各游戏所发行的 NFT 资产，其 URI 遵循以下格式：
 
 ```
-
-oasis://[资产合约地址]/[游戏名]/[类型]/[道具类名]?customField=customValue&......
-
+oasis://[Game(游戏别名)]/[Type(类型)]/[Category(道具类名)]?customField=customValue&...
 ```
 
-**资产合约地址**
+**Game**
 
-发行该资产的合约地址。在进行跨游戏资产转移过程中，将会**验证该字段是否与实际合约地址一致**。
+由发行方指定的游戏别名。
 
-**游戏名**
+**Type**
 
-由发行方指定的游戏名。
+道具类型，方便各游戏准确理解道具。为了规范字段类型的使用，我们预设了以下几种字段：
 
-**类型**
-
-资产类型。为了方便统一解析字段，THE OASIS 预定义了以下字符串表征常用的游戏道具类型：
-
-- CONSUMABLE - 消耗类道具
-- ARMOR - 装备类道具
-- MATERIAL - 材料类道具
-- TASK - 任务类道具。该类道具具有唯一用途，且获得途径通常也是比较特殊，如通过任务、任务期间击杀指定怪物等。
+- CONSUMABLE - 消耗类道具，如药品、卷轴等一次性用品。
+- ARMOR - 装备类道具，如武器、防具、饰品等带属性增益的物品。
+- MATERIAL - 材料类道具，通常用于合成、强化装备，或其他特殊用途。
+- TASK - 任务类道具，获得途径特殊，且用途也较为单一。
 - OTHER - 其他类道具，即无法归类为上述四类的道具。
 
-项目方也可以自定义其他的类型字段作为道具类型。但我们不建议这么做，原因是这需要项目方针对性的为该类资产设计解析逻辑，不利于道具的场景扩展。
+项目方也可以使用自定义的字段。但我们更建议采用统一的分类，这样方便不同游戏项目方更够设计出更通用的解析逻辑。
 
-发行方可对道具类型进一步细化，以 query params 的形式定义子类型，统一格式为：`subtypes=subtype1,subtype2&subtype1=xxx&subtype2=xxx`。
+**Category**
 
-**道具类名**
+道具类名，通常表示一类道具的总称（如蓝宝石、火焰剑等），便于游戏项目方提供扩展元数据。该字段与 Symbol 的区别是，Symbol 是资产符号，用于表征一类资产，且有长度限制；Category 可对该类资产进行进一步地细分。一个形象的例子是：Symbol 为剑，Category 可以是火焰剑、暴风剑等各类剑。
 
-道具类名通常表示了一类道具的总称（如蓝宝石，火焰之剑等），便于游戏项目方提供基本的扩展元数据。该字段与 Symbol 的区别是，Symbol 有一定长度限制，应使用 Token 名称的简写，或是非可读代号，而 URI 中的名称可以使用道具的全名。
+**Query Params**
+
+发行方可以在 Query String 部分添加任意的字段以更细化地描述道具。例如可增加更细致的子类型，推荐格式为`subtypes=type1,type2&type1=xxx&type2=xxx`。
 
 **Example**
 
