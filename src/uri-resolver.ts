@@ -38,19 +38,19 @@ export class NftURI extends URI {
   /** Uri remaining fragments */
   fragments: string[]
 
-  /** Sub types */
-  subTypes: Map<string, string>
+  /** query params */
+  params: Map<string, string>
 
-  static fromMeta(contract: string, game: string, type: NftType, category: string, subTypes?: Map<string, string>): NftURI {
+  static fromMeta(contract: string, game: string, type: NftType, category: string, params?: Map<string, string>): NftURI {
     const NftUri = new NftURI();
     NftUri.contract = contract;
     NftUri.game = game;
     NftUri.type = type;
     NftUri.category = category;
-    NftUri.subTypes = new Map<string, string>();
-    if (subTypes) {
-      subTypes.forEach((v, k) => {
-        NftUri.subTypes.set(k, v);
+    NftUri.params = new Map<string, string>();
+    if (params) {
+      params.forEach((v, k) => {
+        NftUri.params.set(k, v);
       })
     }
     return NftUri;
@@ -81,52 +81,48 @@ export class NftURI extends URI {
 
     this.fragments = segments.slice(3);
 
-    this.subTypes = new Map<string, string>();
-    const subTypes = this.parseSubTypes(query["subtypes"] as string);
-    if (subTypes.length > 0) {
-      for (let i = 0; i < subTypes.length; i++) {
-        const key = subTypes[i];
-        this.subTypes.set(key, query[key]);
-      }
+    this.params = new Map<string, string>();
+    for (let key in query) {
+      this.params.set(key, query[key]);
     }
   }
 
   get raw(): string {
     let baseUri = `oasis://${this.contract}/${this.game}/${this.type}/${this.category}`;
-    if (this.subTypes && this.subTypes.size > 0) {
+    if (this.params && this.params.size > 0) {
       const query = [];
       const keys = [];
-      this.subTypes.forEach((v, k) => {
+      this.params.forEach((v, k) => {
         keys.push(k);
         query.push(`${k}=${v}`);
       })
-      baseUri += `?subtypes=${keys.join(',')}&${query.join('&')}`
+      baseUri += `?params=${keys.join(',')}&${query.join('&')}`
     }
     return baseUri;
   }
 
-  private parseSubTypes(params: string): string[] {
+  private parseparams(params: string): string[] {
     if (!params) {
       return []
     }
     return params.split(',');
   }
 
-  getSubType(k: string): string {
-    return this.subTypes.get(k);
+  getParam(k: string): string {
+    return this.params.get(k);
   }
 
-  addSubType(k: string, v: string) {
-    this.subTypes.set(k, v);
+  addParam(k: string, v: string) {
+    this.params.set(k, v);
   }
 
-  rmSubType(k: string, v: string) {
-    this.subTypes.delete(k);
+  rmParam(k: string, v: string) {
+    this.params.delete(k);
   }
 
-  allSubTypes(): JSON {
+  allParams(): JSON {
     const types: any = {}
-    this.subTypes.forEach((v, k) => {
+    this.params.forEach((v, k) => {
       types[k] = v
     })
     return types as JSON

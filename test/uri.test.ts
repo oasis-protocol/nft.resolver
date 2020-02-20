@@ -11,12 +11,12 @@ describe('uri resolver', () => {
     expect(uri.game).to.equal("game");
     expect(uri.type).to.equal("ARMOR");
     expect(uri.category).to.equal("antsword");
-    expect(uri.subTypes.size).to.equal(2);
+    expect(uri.params.size).to.equal(3);
     expect(uri.fragments.length).to.equal(2);
     expect(uri.fragments[0]).to.equal('other1');
     expect(uri.fragments[1]).to.equal('other2');
-    expect(uri.getSubType("type1")).to.equal('1');
-    expect(uri.getSubType("type2")).to.equal('2');
+    expect(uri.getParam("type1")).to.equal('1');
+    expect(uri.getParam("type2")).to.equal('2');
   })
 
   it('create NftURI from meta data', () => {
@@ -28,8 +28,8 @@ describe('uri resolver', () => {
     expect(uri.game).to.equal("game");
     expect(uri.type).to.equal("ARMOR");
     expect(uri.category).to.equal("antsword");
-    expect(uri.subTypes.size).to.equal(2);
-    expect(uri.getSubType("type1")).to.equal('1');
-    expect(uri.getSubType("type2")).to.equal('2');
+    expect(uri.params.size).to.equal(2);
+    expect(uri.getParam("type1")).to.equal('1');
+    expect(uri.getParam("type2")).to.equal('2');
   })
 })

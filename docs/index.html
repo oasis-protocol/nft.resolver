@@ -76,6 +76,110 @@
 					</li>
 				</ul>
 				<p>API 请查阅<a href="">Document</a></p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>Install with npm:</p>
+				<pre><code class="language-shell">npm install nft-resolver -S</code></pre>
+				<p>or with yarn:</p>
+				<pre><code class="language-shel">yarn add nft-resolver -S</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<a href="#nft-resolve" id="nft-resolve" style="color: inherit; text-decoration: none;">
+					<h3>NFT resolve</h3>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { NFT } <span class="hljs-keyword">from</span> <span class="hljs-string">"nft-resolver"</span>;
+
+<span class="hljs-comment">// Initialize with uuid.</span>
+<span class="hljs-keyword">const</span> uuid = <span class="hljs-string">"123456"</span>;
+<span class="hljs-keyword">const</span> symbol = <span class="hljs-string">"SWORD"</span>;
+<span class="hljs-keyword">const</span> uri = <span class="hljs-string">"oasis://contract/game/OTHER/antsword?subtypes=type1,type2&amp;types1=1&amp;types2=2"</span>;
+<span class="hljs-keyword">const</span> nft = <span class="hljs-keyword">new</span> NFT(uri, symbol, uuid);
+
+<span class="hljs-comment">// or initialize without uuid</span>
+<span class="hljs-keyword">const</span> nft = <span class="hljs-keyword">new</span> NFT(uri, symbol);
+
+<span class="hljs-comment">// Get nft uri and meta data decoded from uri</span>
+nft.uri    <span class="hljs-comment">// "oasis://contract/game/ARMOR/antsword?subtypes=type1,type2&amp;types1=1&amp;types2=2"</span>
+nft.contract    <span class="hljs-comment">// "contract"</span>
+nft.game        <span class="hljs-comment">// "game"</span>
+nft.type        <span class="hljs-comment">// "OTHER"</span>
+nft.name        <span class="hljs-comment">// "antsword"</span>
+nft.subTypes    <span class="hljs-comment">// { type1: "1", types2: "2"}</span>
+
+<span class="hljs-comment">// Set extended meta data</span>
+nft.setExtMetaData({
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Asset Name"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Lorem ipsum..."</span>,
+    <span class="hljs-string">"image"</span>: <span class="hljs-string">"..."</span>,
+    <span class="hljs-string">"properties"</span>: {
+        <span class="hljs-string">"simple_property"</span>: <span class="hljs-string">"example value"</span>,
+        <span class="hljs-comment">// 该字段为建议项</span>
+        <span class="hljs-comment">// 下面为一个例子</span>
+        <span class="hljs-string">"rich_property"</span>: {...}
+    }
+})
+nft.extendedMetaData;   <span class="hljs-comment">// the same with above</span>
+
+<span class="hljs-comment">// Sign nft</span>
+<span class="hljs-keyword">const</span> signature = nft.sign(<span class="hljs-string">'5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'</span>);
+
+<span class="hljs-comment">// Verify signature</span>
+nft.verifySign(<span class="hljs-string">'EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV'</span>);</code></pre>
+				<a href="#uri-resolve" id="uri-resolve" style="color: inherit; text-decoration: none;">
+					<h3>URI resolve</h3>
+				</a>
+				<p>URI resolver provided a low-level uri assemble or disassemble.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { NftURI } <span class="hljs-keyword">from</span> <span class="hljs-string">"nft-resolver"</span>;
+
+<span class="hljs-keyword">const</span> uriString =
+  <span class="hljs-string">"oasis://oasis.asset/rogeman/ARMOR/antsword?subtypes=type1,type2&amp;type1=1&amp;type2=2"</span>;
+<span class="hljs-keyword">const</span> contract = <span class="hljs-string">"oasis.asset"</span>;
+<span class="hljs-keyword">const</span> game = <span class="hljs-string">"rogeman"</span>;
+<span class="hljs-keyword">const</span> type = <span class="hljs-string">"ARMOR"</span>;
+<span class="hljs-keyword">const</span> category = <span class="hljs-string">"antsword"</span>;
+<span class="hljs-keyword">const</span> nftUri = <span class="hljs-keyword">new</span> NftURI(contract, game, type, category, {
+  <span class="hljs-attr">type1</span>: <span class="hljs-string">"1"</span>,
+  <span class="hljs-attr">type2</span>: <span class="hljs-string">"2"</span>
+});
+
+nftUri.raw == uriString; <span class="hljs-comment">// true</span>
+
+<span class="hljs-comment">// Sub types manages</span>
+nftUri.getSubType(<span class="hljs-string">"type1"</span>); <span class="hljs-comment">// "1"</span>
+nftUri.addSubType(<span class="hljs-string">"type3"</span>, <span class="hljs-string">"3"</span>);
+nftUri.rmSubType(<span class="hljs-string">"type3"</span>);
+
+<span class="hljs-comment">// Return all sub types</span>
+nftUri.allSubTypes(); <span class="hljs-comment">// Object{"type1":"1","type2":"2"}</span></code></pre>
+				<p>Extended Meta data class is provided:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {NftExtMeta} <span class="hljs-keyword">from</span> <span class="hljs-string">'nft-resolver'</span>;
+
+<span class="hljs-keyword">const</span> name = <span class="hljs-string">"Asset Name"</span>;
+<span class="hljs-keyword">const</span> desp = <span class="hljs-string">"Simple description"</span>;
+<span class="hljs-keyword">const</span> image = <span class="hljs-string">"https://www.google.com/image/1.jpg"</span>;
+<span class="hljs-keyword">const</span> properties: Properties = {
+  <span class="hljs-attr">simpleProperty</span>: <span class="hljs-string">"Simple property"</span>,
+  <span class="hljs-attr">richProperty</span>:{...}    <span class="hljs-comment">// json object</span>
+};
+
+<span class="hljs-keyword">const</span> extMeta = <span class="hljs-keyword">new</span> NftExtMeta(name,desp,image,properties);
+
+<span class="hljs-comment">// Set new property</span>
+extMeta.setProps(newProps);
+
+extMeta.toString();
+<span class="hljs-comment">// {</span>
+<span class="hljs-comment">//     "name": "Asset Name",</span>
+<span class="hljs-comment">//     "description": "Simple description",</span>
+<span class="hljs-comment">//     "image": "https://www.google.com/image/1.jpg",</span>
+<span class="hljs-comment">//     "properties": {</span>
+<span class="hljs-comment">//         // 可自定义字段，以下仅为一个例子</span>
+<span class="hljs-comment">//         "simple_property": "Simple property",</span>
+<span class="hljs-comment">//         "rich_property": {...}</span>
+<span class="hljs-comment">//     }</span>
+<span class="hljs-comment">// }</span></code></pre>
 				<a href="#nft-元数据meta-data" id="nft-元数据meta-data" style="color: inherit; text-decoration: none;">
 					<h2>NFT 元数据(meta data)</h2>
 				</a>
@@ -121,7 +225,9 @@
 					<h3>URI</h3>
 				</a>
 				<p>URI 遵循 RFC3986 协议，是 NFT 扩展元数据的解析入口。在 THE OASIS 中，我们约定各游戏所发行的 NFT 资产，其 URI 遵循以下格式：</p>
-				<pre><code>oasis://[资产合约地址]/[游戏名]/[类型]/[名称]?customField=customValue&amp;......</code></pre><p><strong>资产合约地址</strong></p>
+				<pre><code>
+oasis://[资产合约地址]/[游戏名]/[类型]/[道具类名]?customField=customValue&amp;......
+</code></pre><p><strong>资产合约地址</strong></p>
 				<p>发行该资产的合约地址。在进行跨游戏资产转移过程中，将会<strong>验证该字段是否与实际合约地址一致</strong>。</p>
 				<p><strong>游戏名</strong></p>
 				<p>由发行方指定的游戏名。</p>
@@ -135,13 +241,17 @@
 					<li>OTHER - 其他类道具，即无法归类为上述四类的道具。</li>
 				</ul>
 				<p>项目方也可以自定义其他的类型字段作为道具类型。但我们不建议这么做，原因是这需要项目方针对性的为该类资产设计解析逻辑，不利于道具的场景扩展。</p>
-				<p>发行方可对道具类型进一步细化，以 query params 的形式定义子类型，统一格式为：<code>subtypes=[subtype1,subtype2]&amp;subtype1=xxx&amp;subtype2=xxx</code>。</p>
-				<p><strong>名称</strong></p>
-				<p>名称通常表示了一类道具的总称，便于游戏项目方提供基本的扩展元数据。该字段与 Symbol 的区别是，Symbol 有一定长度限制，应使用 Token 名称的简写，或是非可读代号，而 URI 中的名称可以使用道具的全名。</p>
+				<p>发行方可对道具类型进一步细化，以 query params 的形式定义子类型，统一格式为：<code>subtypes=subtype1,subtype2&amp;subtype1=xxx&amp;subtype2=xxx</code>。</p>
+				<p><strong>道具类名</strong></p>
+				<p>道具类名通常表示了一类道具的总称（如蓝宝石，火焰之剑等），便于游戏项目方提供基本的扩展元数据。该字段与 Symbol 的区别是，Symbol 有一定长度限制，应使用 Token 名称的简写，或是非可读代号，而 URI 中的名称可以使用道具的全名。</p>
 				<p><strong>Example</strong></p>
 				<p>case 1：游戏【RogeMan】在资产合约【roge.asset】中发行了一瓶恢复 hp 的药品，名为【guanglingsan】，则其 URI 可以是：</p>
-				<pre><code>oasis:<span class="hljs-regexp">//</span>roge.asset<span class="hljs-regexp">/RogeMan/</span>CONSUMABLE<span class="hljs-regexp">/guanglingsan</span></code></pre><p>case 2：游戏【Switch】在资产合约【snake.asset】中发行了一个皮肤，名为【icecap】的头库装饰品，则其 URI 可以是：</p>
-				<pre><code>oasis:<span class="hljs-regexp">//</span>snake.asset<span class="hljs-regexp">/Switch/</span>ARMOR<span class="hljs-regexp">/icecap?pos=HEAD</span></code></pre>
+				<pre><code><span class="hljs-symbol">
+oasis:</span><span class="hljs-comment">//roge.asset/RogeMan/CONSUMABLE/guanglingsan</span>
+</code></pre><p>case 2：游戏【Switch】在资产合约【snake.asset】中发行了一个皮肤，名为【icecap】的头库装饰品，则其 URI 可以是：</p>
+				<pre><code><span class="hljs-symbol">
+oasis:</span><span class="hljs-comment">//snake.asset/Switch/ARMOR/icecap?pos=HEAD</span>
+</code></pre>
 				<a href="#nft-扩展元数据extended-meta-data" id="nft-扩展元数据extended-meta-data" style="color: inherit; text-decoration: none;">
 					<h2>NFT 扩展元数据(extended meta data)</h2>
 				</a>
@@ -150,21 +260,11 @@
 				<pre><code class="language-json">
 {
 
-    &quot;name&quot;: &quot;Asset Name&quot;,        // 必须项
+    &quot;name&quot;: &quot;Asset Name&quot;,               // 必须项
     &quot;description&quot;: &quot;Lorem ipsum...&quot;,    // 必须项
     &quot;image&quot;: &quot;https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png&quot;,    // 必须项
     &quot;properties&quot;: {
-        // 该字段为必须项
-        &quot;simple_property&quot;: &quot;example value&quot;,
-        // 该字段为建议项
-        // 下面为一个例子
-        &quot;rich_property&quot;: {
-            &quot;attack&quot;: 100,         // 攻击力100
-            &quot;defense&quot;: 200,    // 防御力200
-            &quot;skill&quot;: {
-                ...
-            }
-        }
+      ... // 定义JSON对象
     }
 }
 </code></pre>
@@ -173,11 +273,7 @@
 					<li><code>name</code> <strong>string</strong> - NFT 的名称</li>
 					<li><code>description</code> <strong>string</strong> - NFT 的详细介绍</li>
 					<li><code>image</code> <strong>string</strong> - NFT 图片的 url</li>
-					<li><code>properties</code> <strong>JSON</strong> NFT 属性对象<ul>
-							<li><code>simple_property</code> <strong>string</strong> - 属性的简易描述，通常为道具的用途</li>
-							<li><code>rich_property</code> <strong>JSON</strong> - 属性的详细描述，包括数值设计、功能设计、使用场景等。可由游戏项目方自定义字段。</li>
-						</ul>
-					</li>
+					<li><code>properties</code> <strong>JSON</strong> NFT 属性对象</li>
 				</ul>
 				<a href="#道具玩法" id="道具玩法" style="color: inherit; text-decoration: none;">
 					<h2>道具玩法</h2>
@@ -205,6 +301,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_chain_api_eosio_api_.html">"chain_<wbr>api/eosio_<wbr>api"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_chain_api_index_.html">"chain_<wbr>api/index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_chain_api_web3_api_.html">"chain_<wbr>api/web3_<wbr>api"</a>

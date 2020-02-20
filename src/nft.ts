@@ -41,8 +41,8 @@ export class NFT {
     return this.meta.category;
   }
 
-  get subTypes(): JSON {
-    return this.meta.allSubTypes();
+  get params(): JSON {
+    return this.meta.allParams();
   }
 
   get extendedMetaData(): string {

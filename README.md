@@ -76,8 +76,7 @@ URI resolver provided a low-level uri assemble or disassemble.
 ```javascript
 import { NftURI } from "nft-resolver";
 
-const uriString =
-  "oasis://oasis.asset/rogeman/ARMOR/antsword?subtypes=type1,type2&type1=1&type2=2";
+const uriString = "oasis://oasis.asset/rogeman/ARMOR/antsword?type1=1&type2=2";
 const contract = "oasis.asset";
 const game = "rogeman";
 const type = "ARMOR";
@@ -90,12 +89,12 @@ const nftUri = new NftURI(contract, game, type, category, {
 nftUri.raw == uriString; // true
 
 // Sub types manages
-nftUri.getSubType("type1"); // "1"
-nftUri.addSubType("type3", "3");
-nftUri.rmSubType("type3");
+nftUri.getParam("type1"); // "1"
+nftUri.addParam("type3", "3");
+nftUri.rmParam("type3");
 
-// Return all sub types
-nftUri.allSubTypes(); // Object{"type1":"1","type2":"2"}
+// Return all query params
+nftUri.allParams(); // Object{"type1":"1","type2":"2"}
 ```
 
 Extended Meta data class is provided:

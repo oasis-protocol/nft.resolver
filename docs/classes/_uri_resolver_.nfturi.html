@@ -73,7 +73,7 @@
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>THE OASIS URI Format
-						oasis://{ContractAddress}/{GameName}/{ItemType}/{ItemName}?customField=customVal&amp;...</p>
+						oasis://{ContractAddress}/{GameName}/{ItemType}/{ItemCategory}?customField=customVal&amp;...</p>
 					</div>
 				</div>
 			</section>
@@ -103,10 +103,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#category" class="tsd-kind-icon">category</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#contract" class="tsd-kind-icon">contract</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#fragments" class="tsd-kind-icon">fragments</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#game" class="tsd-kind-icon">game</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#subtypes" class="tsd-kind-icon">sub<wbr>Types</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#params" class="tsd-kind-icon">params</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
@@ -124,7 +125,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#addquery" class="tsd-kind-icon">add<wbr>Query</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#addsearch" class="tsd-kind-icon">add<wbr>Search</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#addsubtype" class="tsd-kind-icon">add<wbr>Sub<wbr>Type</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#allsubtypes" class="tsd-kind-icon">all<wbr>Sub<wbr>Types</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#allparams" class="tsd-kind-icon">all<wbr>Params</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#authority" class="tsd-kind-icon">authority</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#clone" class="tsd-kind-icon">clone</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#directory" class="tsd-kind-icon">directory</a></li>
@@ -154,7 +155,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#normalizequery" class="tsd-kind-icon">normalize<wbr>Query</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#normalizesearch" class="tsd-kind-icon">normalize<wbr>Search</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#origin" class="tsd-kind-icon">origin</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_uri_resolver_.nfturi.html#parsesubtypes" class="tsd-kind-icon">parse<wbr>Sub<wbr>Types</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_uri_resolver_.nfturi.html#parseparams" class="tsd-kind-icon">parseparams</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#password" class="tsd-kind-icon">password</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#path" class="tsd-kind-icon">path</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_uri_resolver_.nfturi.html#pathname" class="tsd-kind-icon">pathname</a></li>
@@ -198,7 +199,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L46">uri-resolver.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L57">uri-resolver.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -215,12 +216,27 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="category" class="tsd-anchor"></a>
+					<h3>category</h3>
+					<div class="tsd-signature tsd-kind-icon">category<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L36">uri-resolver.ts:36</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>NFT category</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="contract" class="tsd-anchor"></a>
 					<h3>contract</h3>
 					<div class="tsd-signature tsd-kind-icon">contract<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L19">uri-resolver.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L27">uri-resolver.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -230,12 +246,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="fragments" class="tsd-anchor"></a>
+					<h3>fragments</h3>
+					<div class="tsd-signature tsd-kind-icon">fragments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L39">uri-resolver.ts:39</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Uri remaining fragments</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="game" class="tsd-anchor"></a>
 					<h3>game</h3>
 					<div class="tsd-signature tsd-kind-icon">game<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L22">uri-resolver.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L30">uri-resolver.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -245,32 +276,17 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="params" class="tsd-anchor"></a>
+					<h3>params</h3>
+					<div class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L28">uri-resolver.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L42">uri-resolver.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>NFT name</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="subtypes" class="tsd-anchor"></a>
-					<h3>sub<wbr>Types</h3>
-					<div class="tsd-signature tsd-kind-icon">sub<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L31">uri-resolver.ts:31</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Sub types</p>
+							<p>query params</p>
 						</div>
 					</div>
 				</section>
@@ -280,7 +296,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../enums/_uri_resolver_.nfttype.html" class="tsd-signature-type">NftType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L25">uri-resolver.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L33">uri-resolver.ts:33</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -302,7 +318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L80">uri-resolver.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L90">uri-resolver.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -456,7 +472,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L105">uri-resolver.ts:105</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L115">uri-resolver.ts:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -473,16 +489,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="allsubtypes" class="tsd-anchor"></a>
-					<h3>all<wbr>Sub<wbr>Types</h3>
+					<a name="allparams" class="tsd-anchor"></a>
+					<h3>all<wbr>Params</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">all<wbr>Sub<wbr>Types<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">JSON</span></li>
+						<li class="tsd-signature tsd-kind-icon">all<wbr>Params<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">JSON</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L113">uri-resolver.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L123">uri-resolver.ts:123</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">JSON</span></h4>
@@ -777,7 +793,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L101">uri-resolver.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L111">uri-resolver.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1242,17 +1258,17 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="parsesubtypes" class="tsd-anchor"></a>
-					<h3>parse<wbr>Sub<wbr>Types</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">parse<wbr>Sub<wbr>Types<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="parseparams" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> parseparams</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">parseparams<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L94">uri-resolver.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L104">uri-resolver.ts:104</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1669,7 +1685,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L109">uri-resolver.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L119">uri-resolver.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2218,13 +2234,13 @@
 					<a name="frommeta" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Meta</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Meta<span class="tsd-signature-symbol">(</span>contract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, game<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><a href="../enums/_uri_resolver_.nfttype.html" class="tsd-signature-type">NftType</a>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, subTypes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_uri_resolver_.nfturi.html" class="tsd-signature-type">NftURI</a></li>
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Meta<span class="tsd-signature-symbol">(</span>contract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, game<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><a href="../enums/_uri_resolver_.nfttype.html" class="tsd-signature-type">NftType</a>, category<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_uri_resolver_.nfturi.html" class="tsd-signature-type">NftURI</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/db6327d/src/uri-resolver.ts#L33">uri-resolver.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/oasis-protocol/nft-resolver/blob/210e896/src/uri-resolver.ts#L44">uri-resolver.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2239,10 +2255,10 @@
 									<h5>type: <a href="../enums/_uri_resolver_.nfttype.html" class="tsd-signature-type">NftType</a></h5>
 								</li>
 								<li>
-									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<h5>category: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> subTypes: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> params: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_uri_resolver_.nfturi.html" class="tsd-signature-type">NftURI</a></h4>
@@ -2259,6 +2275,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_chain_api_eosio_api_.html">"chain_<wbr>api/eosio_<wbr>api"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_chain_api_index_.html">"chain_<wbr>api/index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_chain_api_web3_api_.html">"chain_<wbr>api/web3_<wbr>api"</a>
@@ -2294,16 +2313,19 @@
 								<a href="_uri_resolver_.nfturi.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_uri_resolver_.nfturi.html#category" class="tsd-kind-icon">category</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_uri_resolver_.nfturi.html#contract" class="tsd-kind-icon">contract</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_uri_resolver_.nfturi.html#fragments" class="tsd-kind-icon">fragments</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_uri_resolver_.nfturi.html#game" class="tsd-kind-icon">game</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_uri_resolver_.nfturi.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_uri_resolver_.nfturi.html#subtypes" class="tsd-kind-icon">sub<wbr>Types</a>
+								<a href="_uri_resolver_.nfturi.html#params" class="tsd-kind-icon">params</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_uri_resolver_.nfturi.html#type" class="tsd-kind-icon">type</a>
@@ -2327,7 +2349,7 @@
 								<a href="_uri_resolver_.nfturi.html#addsubtype" class="tsd-kind-icon">add<wbr>Sub<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_uri_resolver_.nfturi.html#allsubtypes" class="tsd-kind-icon">all<wbr>Sub<wbr>Types</a>
+								<a href="_uri_resolver_.nfturi.html#allparams" class="tsd-kind-icon">all<wbr>Params</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_uri_resolver_.nfturi.html#authority" class="tsd-kind-icon">authority</a>
@@ -2416,8 +2438,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_uri_resolver_.nfturi.html#origin" class="tsd-kind-icon">origin</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_uri_resolver_.nfturi.html#parsesubtypes" class="tsd-kind-icon">parse<wbr>Sub<wbr>Types</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_uri_resolver_.nfturi.html#parseparams" class="tsd-kind-icon">parseparams</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_uri_resolver_.nfturi.html#password" class="tsd-kind-icon">password</a>
@@ -2501,6 +2523,9 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_uri_resolver_.extendedmeta.html" class="tsd-kind-icon">Extended<wbr>Meta</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
