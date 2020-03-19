@@ -69,7 +69,6 @@ export class NftURI extends URI {
     let typ: string
     const segments = this.segment().slice();
     [typ, this.category] = [segments[0], segments[1]];
-    if (!NftType[typ]) console.warn(`'${typ}' is not standard nft type in Oasis. Standard type supports 'CONSUMABLE','ARMOR','MATERIAL', 'TASK' and 'OTHER'`);
     this.type = NftType[typ] || typ;
     if (this.game == "" || this.category == "") {
       throw new Error("meta data resolved from uri is not valid");
