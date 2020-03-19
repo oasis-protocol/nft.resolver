@@ -18,7 +18,7 @@ export namespace Web3Signer {
   export function sign(uuid: string, uri: string, symbol: string, sk: string) {
     let digest = uuid + uri + symbol;
     const hash = Web3.utils.soliditySha3(digest);
-    return (new Web3()).eth.accounts.sign(hash, sk);
+    return (new Web3()).eth.accounts.sign(hash, sk).signature;
   }
 
   export function verifySign(uuid: string, uri: string, symbol: string, signature: string, signer: string): boolean {
