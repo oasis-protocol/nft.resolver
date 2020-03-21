@@ -56,10 +56,6 @@ export class NftURI extends URI {
     super(uri);
     if (!uri) return this;
 
-    if (this.protocol() != "oasis") {
-      throw new Error("uri protocol should be `oasis`");
-    }
-
     this.game = this.hostname();
     if (this.game == "") {
       throw new Error("uri hostname should not be empty");
@@ -83,7 +79,7 @@ export class NftURI extends URI {
   }
 
   get raw(): string {
-    let baseUri = `oasis://${this.game}/${this.type}/${this.category}`;
+    let baseUri = `${this.protocol()}://${this.game}/${this.type}/${this.category}`;
     if (this.params && this.params.size > 0) {
       const query = [];
       const keys = [];
