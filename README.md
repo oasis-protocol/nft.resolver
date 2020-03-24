@@ -1,14 +1,16 @@
 # nft.resolver
 
+[中文版](README_CN.md)
+
 Resolver for non-fungible tokens issued by oasis.asset.
 
-NFT Resolver 是供游戏开发者使用的 SDK，提供两个功能：
+NFT Resolver is a SDK for NFT developer：
 
-- NFT 的标准化创建与签名
+- NFT generate and sign following `oasis.asset` standard.
 
-- 根据 NFT 的元数据，定制化生成扩展元数据
+- Customized and generate extended meta data from a NFT.
 
-API 请查阅[Document](docs/)
+Check out the [API](docs/)
 
 ## Installation
 
@@ -53,10 +55,9 @@ nft.setExtMetaData({
     "description": "Lorem ipsum...",
     "image": "...",
     "properties": {
-        "simple_property": "example value",
-        // 该字段为建议项
-        // 下面为一个例子
-        "rich_property": {...}
+      // An example
+      "simple_property": "example value",
+      "rich_property": {...}
     }
 })
 nft.extendedMetaData;   // the same with above
@@ -121,128 +122,111 @@ extMeta.toString();
 //     "description": "Simple description",
 //     "image": "https://www.google.com/image/1.jpg",
 //     "properties": {
-//         // 可自定义字段，以下仅为一个例子
 //         "simple_property": "Simple property",
 //         "rich_property": {...}
 //     }
 // }
 ```
 
-## NFT 元数据(meta data)
+## NFT Meta Data
 
 ### Global ID（uuid）
 
-每个 NFT 都有一个全局唯一的 id，在发行时自动生成，格式为`| 发行合约地址 | 合约内的资产id | chain id |`。
+Every NFT has a global unqiue id with type `uint128` generated at issuing. The format is `| Contract Address | Token ID | Chain id(if possible) |`
 
 **Solidity**
 
 type: uint256
 
-| 160 bits | 64 bits     | 32 bits                    |
-| -------- | ----------- | -------------------------- |
-| 合约地址 | 内部递增 ID | Chain id（预留给跨链场景） |
+| 160 bits         | 64 bits  | 32 bits |
+| ---------------- | -------- | ------- |
+| Contract address | Token ID | Reserve |
 
 **EOS**
 
 type: uint128
 
-| 64 bits    | 64 bits     |
-| ---------- | ----------- |
-| 合约账户名 | 内部递增 ID |
+| 64 bits          | 64 bits  |
+| ---------------- | -------- |
+| Contract account | Token ID |
 
 ### Symbol
 
-资产符号用于唯一性表征该资产的总称。
+General name for representing a class of asset uniquely.
 
 ### URI
 
-URI 遵循 RFC3986 协议，是 NFT 扩展元数据的解析入口。在 THE OASIS 中，我们约定各游戏所发行的 NFT 资产，其 URI 遵循以下格式：
+URI format is the entrance of retrieving extended meta data following RFC3986. We prefer the URI protocol below:
 
 ```
-oasis://[Game(游戏别名)]/[Type(类型)]/[Category(道具类名)]?customField=customValue&...
+{brand}://{Game Name}/{Type}/{Category}?customField=customValue&...
 ```
+
+`brand` is a certain general protocol name. We usually use `oasis`.
 
 **Game**
 
-由发行方指定的游戏别名。推荐使用 OASIS.WORLD 合约的实际部署地址。
+Game name that issue this asset.
 
 **Type**
 
-道具类型，方便各游戏准确理解道具。为了规范字段类型的使用，我们预设了以下几种字段：
+Asset type. For easier to understand the asset type, we recommend to use the **type words** below.
 
-- CONSUMABLE - 消耗类道具，如药品、卷轴等一次性用品。
-- ARMOR - 装备类道具，如武器、防具、饰品等带属性增益的物品。
-- MATERIAL - 材料类道具，通常用于合成、强化装备，或其他特殊用途。
-- TASK - 任务类道具，获得途径特殊，且用途也较为单一。
-- OTHER - 其他类道具，即无法归类为上述四类的道具。
+- CONSUMABLE - Consumable items, like medicine, reels.
+- ARMOR - Armor item, like hat, clothes, shose.
+- MATERIAL - Material items, usually for strengthen, synthetic armor, or other usages.
+- TASK - Task special items with limited usages.
+- SOUVENIR - Souvenir items, usually representing some experiences. Usually has no special usages.
 
-项目方也可以使用自定义的字段。但我们更建议采用统一的分类，这样方便不同游戏项目方更够设计出更通用的解析逻辑。
+Developers can also customize the type string.
 
 **Category**
 
-道具类名，通常表示一类道具的总称（如蓝宝石、火焰剑等），便于游戏项目方提供扩展元数据。该字段与 Symbol 的区别是，Symbol 是资产符号，用于表征一类资产，且有长度限制；Category 可对该类资产进行进一步地细分。一个形象的例子是：Symbol 为剑，Category 可以是火焰剑、暴风剑等各类剑。
+Category name of asset, representing a general detail name of a kind of asset.
+
+The difference between `symbol` and `category` is that: `symbol` is the symbol of token, representing a big class of asset, like **SWORD**, **HAT**; `category` is the detail name of this category of asset, like **yellow-sword**, **green-hat** and so on.
 
 **Query Params**
 
-发行方可以在 Query String 部分添加任意的字段以更细化地描述道具。例如可增加更细致的子类型，推荐格式为`subtypes=type1,type2&type1=xxx&type2=xxx`。
+Asset issuers can add any types of fields at **query string** to describe the asset more clearlly and widely.
 
 **Example**
 
-case 1：游戏【RogeMan】发行了一瓶恢复 hp 的药品，名为【guanglingsan】，则其 URI 可以是：
+case 1：Game「RogeMan」issued a medicine to recover life with the name「guanglingsan」. The URI can be:
 
 ```
-
 oasis://RogeMan/CONSUMABLE/guanglingsan
-
 ```
 
-case 2：游戏【Switch】在资产合约【snake.asset】中发行了一个皮肤，名为【icecap】的头库装饰品，则其 URI 可以是：
+case 2：Game「Switch」issued a skin for actor's head at contract「snake.asset」with the name「icecap」. The URI can be:
 
 ```
-
 oasis://Switch/ARMOR/icecap?pos=HEAD
-
 ```
 
-## NFT 扩展元数据(extended meta data)
+## NFT Extended Meta Data
 
-扩展元数据是游戏根据 URI 进行定制化解析所返回的 JSON 数据，反应来该 NFT 在当前游戏中的名称、属性、用途等定制化内容。
+Extended meta data is a upper-layer result of decoding NFT URI. Different game can implement their own logic to understand the same NFT, and return different extended meta data.
 
-在 THE OASIS 中，我们希望统一扩展元数据的格式，以方便不同游戏项目方对 NFT 进行定制化解析：
+A typical JSON data for extended meta data is below:
 
 ```json
 
 {
 
-    "name": "Asset Name",               // 必须项
-    "description": "Lorem ipsum...",    // 必须项
-    "image": "https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png",    // 必须项
+    "name": "Asset Name",               // required
+    "description": "Lorem ipsum...",    // required
+    "image": "https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png",    // required
     "properties": {
-      ... // 定义JSON对象
+      ... // Key => Value property fields
     }
 }
 
 ```
 
-**字段名定义**
+**Field Name Definition**
 
-- `name` **string** - NFT 的名称
-- `description` **string** - NFT 的详细介绍
-- `image` **string** - NFT 图片的 url
-- `properties` **JSON** NFT 属性对象
-
-## 道具玩法
-
-### 合成
-
-合成是不同道具的组合，其原理是将不同道具销毁，生成新的道具。
-
-### 镶嵌
-
-镶嵌也是不同道具的组合。与合成不同的是，镶嵌是可逆的过程，即镶嵌材料道具并不销毁，可再次拆分。游戏项目方应将镶嵌的关系记录存储在中心化数据库中，且保留镶嵌材料的道具 ID。
-
-当某道具作为镶嵌材料时，其不应进行跨合约转移。该限制逻辑可放在`world.canICTransfer`中调用。
-
-### 强化
-
-强化是对道具属性值的修改。由于链上 NFT 元数据不可修改，对于具体属性值的修改只能记录在游戏的中心化数据库中。
+- `name` **string** - NFT name
+- `description` **string** - NFT descriptoin
+- `image` **string** - NFT image url
+- `properties` **JSON** NFT further properties

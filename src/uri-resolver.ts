@@ -8,6 +8,7 @@ export enum NftType {
   MATERIAL = "MATERIAL",
   TASK = "TASK",
   OTHER = "OTHER",
+  SOUVENIR = "SOUVENIR"
 }
 
 /** Nft extended meta data */
