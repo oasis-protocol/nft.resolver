@@ -8,7 +8,7 @@ NFT Resolver 是供游戏开发者使用的 SDK，提供两个功能：
 
 - 根据 NFT 的元数据，定制化生成扩展元数据
 
-API 请查阅[文档](docs/)
+API 请查阅[文档](https://mobiusgame.github.io/nft-resolver/)
 
 ## Installation
 
@@ -34,18 +34,19 @@ import { NFT } from "nft-resolver";
 // Initialize with uuid.
 const uuid = "123456";
 const symbol = "SWORD";
-const uri = "oasis://Game/OTHER/antsword?subtypes=type1,type2&types1=1&types2=2";
+const uri = "oasis://Game/OTHER/antsword/other1/other2?subtypes=type1,type2&types1=1&types2=2";
 const nft = new NFT(uri, symbol, uuid);
 
 // or initialize without uuid
 const nft = new NFT(uri, symbol);
 
 // Get nft uri and meta data decoded from uri
-nft.uri    // "oasis://game/ARMOR/antsword?subtypes=type1,type2&types1=1&types2=2"
+nft.uri    // "oasis://game/ARMOR/antsword/other1/other2?subtypes=type1,type2&types1=1&types2=2"
 nft.game        // "game"
 nft.type        // "OTHER"
 nft.category    // "antsword"
 nft.params    // { subtypes:"type1,type2", type1: "1", types2: "2"}
+nft.fragments  // ["other1","other2"]
 
 // Set extended meta data
 nft.setExtMetaData({

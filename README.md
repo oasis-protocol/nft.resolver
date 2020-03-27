@@ -10,7 +10,7 @@ NFT Resolver is a SDK for NFT developer：
 
 - Customized and generate extended meta data from a NFT.
 
-Check out the [API](docs/)
+Check out the [API](https://mobiusgame.github.io/nft-resolver/)
 
 ## Installation
 
@@ -43,11 +43,12 @@ const nft = new NFT(uri, symbol, uuid);
 const nft = new NFT(uri, symbol);
 
 // Get nft uri and meta data decoded from uri
-nft.uri    // "oasis://game/ARMOR/antsword?subtypes=type1,type2&types1=1&types2=2"
+nft.uri    // "oasis://game/ARMOR/antsword/other1/other2?subtypes=type1,type2&types1=1&types2=2"
 nft.game        // "game"
 nft.type        // "OTHER"
 nft.category    // "antsword"
-nft.params    // { subtypes:"type1,type2", type1: "1", types2: "2"}
+nft.params      // { subtypes:"type1,type2", type1: "1", types2: "2"}
+nft.fragments   // ["other1","other2"]
 
 // Set extended meta data
 nft.setExtMetaData({
