@@ -21,11 +21,11 @@ export interface ExtendedMeta {
 
 /**
  * THE OASIS URI Format 
- * oasis://{GameName}/{ItemType}/{ItemCategory}?customField=customVal&...
+ * oasis://{WorldName}/{ItemType}/{ItemCategory}?customField=customVal&...
  */
 export class NftURI extends URI {
-  /** Game name */
-  game: string
+  /** World name */
+  world: string
 
   /** NFT type */
   type: NftType
@@ -39,9 +39,9 @@ export class NftURI extends URI {
   /** query params */
   params: Map<string, string>
 
-  static fromMeta(game: string, type: NftType, category: string, params?: Map<string, string>): NftURI {
+  static fromMeta(world: string, type: NftType, category: string, params?: Map<string, string>): NftURI {
     const NftUri = new NftURI();
-    NftUri.game = game;
+    NftUri.world = world;
     NftUri.type = type;
     NftUri.category = category;
     NftUri.params = new Map<string, string>();
@@ -57,8 +57,8 @@ export class NftURI extends URI {
     super(uri);
     if (!uri) return this;
 
-    this.game = this.hostname();
-    if (this.game == "") {
+    this.world = this.hostname();
+    if (this.world == "") {
       throw new Error("uri hostname should not be empty");
     }
     const query = this.query(true);
@@ -67,7 +67,7 @@ export class NftURI extends URI {
     const segments = this.segment().slice();
     [typ, this.category] = [segments[0], segments[1]];
     this.type = NftType[typ] || typ;
-    if (this.game == "" || this.category == "") {
+    if (this.world == "" || this.category == "") {
       throw new Error("meta data resolved from uri is not valid");
     }
 
@@ -80,7 +80,7 @@ export class NftURI extends URI {
   }
 
   get raw(): string {
-    let baseUri = `${this.protocol()}://${this.game}/${this.type}/${this.category}`;
+    let baseUri = `${this.protocol()}://${this.world}/${this.type}/${this.category}`;
     if (this.params && this.params.size > 0) {
       const query = [];
       const keys = [];

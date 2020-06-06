@@ -28,6 +28,10 @@ yarn add nft-resolver -S
 
 ## Usage
 
+### NFT Meta
+
+check out [docs](https://docs.theoasis.io/v/en/core-concept/meta).
+
 ### NFT resolve
 
 ```javascript
@@ -85,7 +89,7 @@ const category = "antsword";
 const nftUri = new NftURI(game, type, category, {
   subtypes: "type1,type2",
   type1: "1",
-  type2: "2"
+  type2: "2",
 });
 
 nftUri.raw == uriString; // true
@@ -128,106 +132,3 @@ extMeta.toString();
 //     }
 // }
 ```
-
-## NFT Meta Data
-
-### Global ID（uuid）
-
-Every NFT has a global unqiue id with type `uint128` generated at issuing. The format is `| Contract Address | Token ID | Chain id(if possible) |`
-
-**Solidity**
-
-type: uint256
-
-| 160 bits         | 64 bits  | 32 bits |
-| ---------------- | -------- | ------- |
-| Contract address | Token ID | Reserve |
-
-**EOS**
-
-type: uint128
-
-| 64 bits          | 64 bits  |
-| ---------------- | -------- |
-| Contract account | Token ID |
-
-### Symbol
-
-General name for representing a class of asset uniquely.
-
-### URI
-
-URI format is the entrance of retrieving extended meta data following RFC3986. We prefer the URI protocol below:
-
-```
-{brand}://{Game Name}/{Type}/{Category}?customField=customValue&...
-```
-
-`brand` is a certain general protocol name. We usually use `oasis`.
-
-**Game**
-
-Game name that issue this asset.
-
-**Type**
-
-Asset type. For easier to understand the asset type, we recommend to use the **type words** below.
-
-- CONSUMABLE - Consumable items, like medicine, reels.
-- ARMOR - Armor item, like hat, clothes, shose.
-- MATERIAL - Material items, usually for strengthen, synthetic armor, or other usages.
-- TASK - Task special items with limited usages.
-- SOUVENIR - Souvenir items, usually representing some experiences. Usually has no special usages.
-
-Developers can also customize the type string.
-
-**Category**
-
-Category name of asset, representing a general detail name of a kind of asset.
-
-The difference between `symbol` and `category` is that: `symbol` is the symbol of token, representing a big class of asset, like **SWORD**, **HAT**; `category` is the detail name of this category of asset, like **yellow-sword**, **green-hat** and so on.
-
-**Query Params**
-
-Asset issuers can add any types of fields at **query string** to describe the asset more clearlly and widely.
-
-**Example**
-
-case 1：Game「RogeMan」issued a medicine to recover life with the name「guanglingsan」. The URI can be:
-
-```
-oasis://RogeMan/CONSUMABLE/guanglingsan
-```
-
-case 2：Game「Switch」issued a skin for actor's head at contract「snake.asset」with the name「icecap」. The URI can be:
-
-```
-oasis://Switch/ARMOR/icecap?pos=HEAD
-```
-
-## NFT Extended Meta Data
-
-Extended meta data is a upper-layer result of decoding NFT URI. Different game can implement their own logic to understand the same NFT, and return different extended meta data.
-
-A typical JSON data for extended meta data is below:
-
-```json
-
-{
-
-    "name": "Asset Name",               // required
-    "description": "Lorem ipsum...",    // required
-    "image": "https:\/\/s3.amazonaws.com\/your-bucket\/images\/{id}.png",    // required
-    "properties": {
-      ... // Key => Value property fields
-    }
-}
-
-```
-
-**Field Name Definition**
-
-- `name` **string** - NFT name
-- `description` **string** - NFT descriptoin
-- `image` **string** - NFT image url
-- `properties` **JSON** NFT further properties

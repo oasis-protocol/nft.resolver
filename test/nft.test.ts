@@ -9,7 +9,7 @@ describe('nft resolver', () => {
     const uri = "oasis://game/ARMOR/antsword";
     const uuid = "1000"
     const nft = new NFT(uri, "SWORD", uuid);
-    expect(nft.game).to.equal("game");
+    expect(nft.world).to.equal("game");
     expect(nft.uuid).to.equal(uuid);
     expect(nft.type).to.equal("ARMOR");
     expect(nft.category).to.equal("antsword");

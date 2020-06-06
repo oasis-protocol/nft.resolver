@@ -25,8 +25,8 @@ export class NFT {
     return this.meta.raw;
   }
 
-  get game(): string {
-    return this.meta.game;
+  get world(): string {
+    return this.meta.world;
   }
 
   get type(): string {
