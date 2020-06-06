@@ -38,15 +38,15 @@ import { NFT } from "nft-resolver";
 // Initialize with uuid.
 const uuid = "123456";
 const symbol = "SWORD";
-const uri = "oasis://Game/OTHER/antsword/other1/other2?subtypes=type1,type2&types1=1&types2=2";
+const uri = "oasis://rogeman/OTHER/antsword/other1/other2?subtypes=type1,type2&types1=1&types2=2";
 const nft = new NFT(uri, symbol, uuid);
 
 // or initialize without uuid
 const nft = new NFT(uri, symbol);
 
 // Get nft uri and meta data decoded from uri
-nft.uri    // "oasis://game/ARMOR/antsword/other1/other2?subtypes=type1,type2&types1=1&types2=2"
-nft.game        // "game"
+nft.uri    // "oasis://rogeman/ARMOR/antsword/other1/other2?subtypes=type1,type2&types1=1&types2=2"
+nft.world        // "rogeman"
 nft.type        // "OTHER"
 nft.category    // "antsword"
 nft.params    // { subtypes:"type1,type2", type1: "1", types2: "2"}
