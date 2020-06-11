@@ -9,7 +9,7 @@ describe('uri resolver', () => {
     const uri = new NftURI(base);
     expect(uri.world).to.equal("game");
     expect(uri.type).to.equal("ARMOR");
-    expect(uri.category).to.equal("antsword");
+    expect(uri.name).to.equal("antsword");
     expect(uri.params.size).to.equal(3);
     expect(uri.fragments.length).to.equal(2);
     expect(uri.fragments[0]).to.equal('other1');
@@ -25,7 +25,7 @@ describe('uri resolver', () => {
     const uri = NftURI.fromMeta("game", NftType.ARMOR, "antsword", subTypes);
     expect(uri.world).to.equal("game");
     expect(uri.type).to.equal("ARMOR");
-    expect(uri.category).to.equal("antsword");
+    expect(uri.name).to.equal("antsword");
     expect(uri.params.size).to.equal(2);
     expect(uri.getParam("type1")).to.equal('1');
     expect(uri.getParam("type2")).to.equal('2');

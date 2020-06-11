@@ -12,7 +12,7 @@ describe('nft resolver', () => {
     expect(nft.world).to.equal("game");
     expect(nft.uuid).to.equal(uuid);
     expect(nft.type).to.equal("ARMOR");
-    expect(nft.category).to.equal("antsword");
+    expect(nft.name).to.equal("antsword");
     expect(nft.uri).to.equal(uri);
   })
 
